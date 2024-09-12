@@ -39,4 +39,16 @@ void cuenta_letras(char *text);
 /// @param n Numero entero o flotante.
 void funcion_lineal(double n);
 
+
+/// @brief Opcion 6 (admin): Añade un usuario a la base de datos
+void anade_usuario();
+
+
+/// @brief Opcion 7 (admin): Lista los usuarios registrados en la base de datos.
+void listar_usuarios();
+
+
+/// @brief Opcion 8 (admin): Elimina a un usuario con el rol "generico"
+void elimina_usuario();
+
 #endif

@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "validaciones.h": "c"
+        "validaciones.h": "c",
+        "cjson.h": "c",
+        "ctype.h": "c",
+        "stdio.h": "c",
+        "stdbool.h": "c",
+        "string.h": "c"
     }
 }

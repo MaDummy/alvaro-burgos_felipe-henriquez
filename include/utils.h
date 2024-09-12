@@ -5,16 +5,16 @@
 void exporta_env();
 
 
-/// @brief Busca al usuario entre las variables de entorno
+/// @brief Busca al usuario en el archivo JSON.
 /// @param user Usuario a buscar.
-/// @return "Indice" del usuario en la variable de entorno que lo contiene.
-int busca_usuario_env(char *user);
+/// @param pass Contrasena del usuario.
+/// @return Rol del usuario.
+char *verifica_usuario(char *user, char *pass);
 
 
-/// @brief Verifica la contrasena del usuario en las variables de entorno.
-/// @param password Contrasena a verificar.
-/// @param indice Indice de la contrasena en la variable de entorno que la contiene.
-void verifica_contrasena_env(char *password, int indice);
+/// @brief Convierte el n a double.
+/// @param n Numero a convertir.
+/// @return n convertido a double.
 double convierte_n(char *n);
 
 #endif

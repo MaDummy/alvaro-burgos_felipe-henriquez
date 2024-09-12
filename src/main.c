@@ -13,21 +13,19 @@ int main(int argc, char* argv[]){
     int tamano, opt, *vector;
     double n;
     bool has_u = false, has_p = false, has_t = false, has_v = false, has_n = false;
-    char *user = NULL, *password = NULL, *text = NULL, *text_vector = NULL, *text_n = NULL, *endptr;
+    char *user = NULL, *password = NULL, *text = NULL, *text_vector = NULL, *text_n = NULL, *endptr, *rol;
     opterr = 0;
-
-    exporta_env();
 
     while((opt = getopt(argc, argv, "u:p:t:v:n:")) != -1){
         switch(opt){
             case 'u':
                 user = optarg;
-                validUser(user);
+                validUser(user, "login");
                 has_u = true;
                 break;
             case 'p':
                 password = optarg;
-                validPass(user, password);
+                rol = validPass(user, password);
                 has_p = true;
                 break;
             case 't':  
@@ -58,7 +56,7 @@ int main(int argc, char* argv[]){
         exit(EXIT_FAILURE);
     }
 
-    menu(text, vector, tamano, n);
+    menu(text, vector, tamano, n, user, rol);
 
     return 0;
 }

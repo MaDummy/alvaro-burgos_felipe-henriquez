@@ -5,39 +5,36 @@
 #include <stdbool.h>
 #include "../include/utils.h"
 
-
-void validUser(char *user){
+bool validUser(char *user, char *contexto){
     if(strlen(user) < 3){
+        if(strcmp(contexto, "anade") == 0){
+            return false;
+        }else{
         fprintf(stderr, "Error: El largo del nombre de usuario debe ser de mínimo 3 letras.\n");
         exit(EXIT_FAILURE);
-    }
-    for(int i = 0; i < strlen(user); i++){
-        if (!isalpha(user[i])){
-            fprintf(stderr, "Error: El nombre de usuario solo debe contener letras.\n");
-            exit(EXIT_FAILURE);
         }
     }
+
+    for(int i = 0; i < strlen(user); i++){
+        if (!isalpha(user[i])){
+            if(strcmp(contexto, "anade") == 0){
+                return false;
+            }else{
+            fprintf(stderr, "Error: El nombre de usuario solo debe contener letras.\n");
+            exit(EXIT_FAILURE);
+            }
+        }
+    }
+    return true;
 }
 
 
-void validPass(char *user, char *password){
-    bool es_correcta = false;
-
+char *validPass(char *user, char *password){
     if(strlen(password) < 6){
-        fprintf(stderr, "Error: El parámetro -p debe contener mínimo 6 caracteres.\n");
+        fprintf(stderr, "Fallo al iniciar sesión. Intente nuevamente.\n");
         exit(EXIT_FAILURE);
     }
-    for(int i = 0; i < strlen(password); i++){
-        if(!isalnum(password[i])){
-            fprintf(stderr, "Error: El parámetro -p debe contener sólo números y/o letras.\n");
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    // Verificacion de usuario en variables de entorno.
-    // Primero verifica que el usuario existe y luego verifica la contrasena
-    int indice = busca_usuario_env(user);
-    verifica_contrasena_env(password, indice);
+    return verifica_usuario(user, password);
 }
 
 

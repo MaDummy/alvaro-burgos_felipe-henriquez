@@ -17,50 +17,41 @@ void exporta_env() {
             *delimiter = '\0';
             char *key = line;
             char *value = delimiter + 1;
-
-            setenv(key, value, 1);
+            
+            if(getenv(key) == NULL) setenv(key, value, 1);
         }
     }
     fclose(file);
 }
 
-int busca_usuario_env(char *user){
-    bool existe = false;
-    int indice = 0;
 
-    char *usuarios_env = getenv("USERS");
-    char *usuarios = strtok(usuarios_env, ",");
+char *verifica_usuario(char *nombre, char *contra){
+    exporta_env();
+    char *filename = getenv("ARCH_USUARIOS");
+    FILE *file = fopen(filename, "r");
+    char linea[100];
+    char *user, *pass, *role;
 
-    while(usuarios != NULL){
-        if(strcmp(usuarios, user) == 0){
-            existe = true;
-            break;
+    while(fgets(linea, sizeof(linea), file)){
+        linea[strcspn(linea, "\n")] = 0;
+
+        user = strtok(linea, "; ");
+        pass = strtok(NULL, "; ");
+        role = strtok(NULL, "; ");
+
+        if(strcmp(user, nombre) == 0 && strcmp(pass, contra) == 0){
+            fclose(file);
+            char *rol = malloc(strlen(role) + 1);
+            strcpy(rol, role);
+            return rol;
         }
-        indice++;
-        usuarios = strtok(NULL, ",");
     }
-    
-    if(!existe){
-        printf("Fallo al iniciar sesión, intente nuevamente.\n");
-        exit(EXIT_FAILURE);
-    }
-    return indice;
+
+    fprintf(stderr, "Fallo al iniciar sesión. Intente nuevamente.\n");
+    fclose(file);
+    exit(EXIT_FAILURE);
 }
 
-void verifica_contrasena_env(char *password, int indice){
-    char *contras_env = getenv("PASSWORDS");
-
-    char *contras = strtok(contras_env, ",");
-    
-    for(int i = 0; i < indice; i++){
-        contras = strtok(NULL, ",");
-        }
-
-    if((strcmp(contras, password) != 0)){
-        printf("Fallo al iniciar sesión, intente nuevamente.\n");
-        exit(EXIT_FAILURE);
-    }
-}
 
 double convierte_n(char *n){
     double nuevo_n = strtod(n, NULL);

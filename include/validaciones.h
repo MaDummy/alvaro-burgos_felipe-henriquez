@@ -3,13 +3,15 @@
 
 /// @brief Valida el usuario segun los criterios de la pauta.
 /// @param user Usuario a validar.
-void validUser(char *user);
+/// @param contexto Contexto a validar el usuario.
+bool validUser(char *user, char *contexto);
 
 
 /// @brief Valida la contrasena del usuario segun los criterios de la pauta.
 /// @param user Usuario de quien es la contrasena
 /// @param password Contrasena a validar.
-void validPass(char *user, char *password);
+/// @return Rol del usuario, en caso de existir.
+char *validPass(char *user, char *password);
 
 
 /// @brief Valida el texto ingresado.

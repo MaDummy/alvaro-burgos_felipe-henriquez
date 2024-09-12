@@ -1,0 +1,5 @@
+admin;contrasenadeladmin;admin
+juana;juana2003;generico
+alvarito;nyalvarito;generico
+alv;nyaaaaaaaaa;generico
+Alexis; Sanchez; generico

@@ -1,6 +1,7 @@
 # Variables
 CC = gcc
-CFLAGS = -I./include
+CFLAGS = -I./include -I/usr/local/include/cjson  # Incluye la ruta a los encabezados de cJSON
+LDFLAGS = -L/usr/local/lib -lcjson           # Incluye la ruta a las bibliotecas de cJSON
 SRCDIR = src
 OBJDIR = obj
 TARGET = main
@@ -13,7 +14,7 @@ all: $(TARGET)
 
 
 $(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET)
+	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
 
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)

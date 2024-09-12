@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h> // Para usar booleanos
 #include <ctype.h>   // Para funciones de caracteres (isdigit, tolower)
-#include <bits/getopt_core.h> // Tira error si no se implementa ojo piojo
+//#include <bits/getopt_core.h> // Tira error si no se implementa ojo piojo
 #include "../include/menu.h"  // Incluye la funcion regresa_menu
 #include "../include/validaciones.h"
 #include "../include/utils.h"

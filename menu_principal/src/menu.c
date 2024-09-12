@@ -55,21 +55,24 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
             case 5:
                 funcion_lineal(n);
                 break;
+            case 6:
+                system("../../menu_secundario/main");
+                break;
             case 0:
                 printf("Saliendo del programa...\n");
                 exit(0);
                 break;
-            case 6:
+            case 7:
                 if(strcmp(rol, "admin") == 0){
                     anade_usuario();
                     break;
                 }
-            case 7:
+            case 8:
                 if(strcmp(rol, "admin") == 0){
                     listar_usuarios();
                     break;
                     }
-            case 8:
+            case 9:
                 if(strcmp(rol, "admin") == 0){
                     elimina_usuario();
                     break;

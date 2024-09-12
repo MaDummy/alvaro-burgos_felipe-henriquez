@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <bits/getopt_core.h>
+//#include <bits/getopt_core.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>

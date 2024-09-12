@@ -1,4 +1,5 @@
 README - Menú de opciones en C
+
 DESCRIPCIÓN
 Este programa está diseñado para ejecutarse en sistemas Unix/Linux/Mac y permite al usuario interactuar con varias funcionalidades a través de un menú. Existen dos roles: admin y generico. Las opciones varían según el rol del usuario.
 

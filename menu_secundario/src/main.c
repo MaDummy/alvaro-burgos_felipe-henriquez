@@ -21,7 +21,7 @@ int main() {
         printf("2: Ingresar ruta de la carpeta de entrada\n");
         printf("3: Ingresar ruta de la carpeta de salida\n");
         printf("4: Ejecutar conteo de palabras\n");
-        printf("5: SALIR\n\n");
+        printf("0: SALIR\n\n");
         printf("-Extension actual: %s\n",extension);
         printf("-Ruta carpeta de entrada actual: %s\n",ruta_entrada);
         printf("-Ruta carpeta de salida actual: %s\n\n",ruta_salida);
@@ -56,7 +56,7 @@ int main() {
             case 4:
                 procesamiento_archivos(ruta_entrada, extension, ruta_salida);
                 break;
-            case 5:
+            case 0:
                 salir = true;
                 break;
             default:

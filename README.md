@@ -11,6 +11,12 @@ Para usuarios con el rol "generico":
 3. Contar cantidad de letras: Cuenta la cantidad de letras en el texto ingresado.
 4. Suma y promedio de un vector: Muestra el vector ingresado, además de la suma y el promedio de los componentes de este.
 5. Función lineal: Calcula la función lineal f(x) = 5x^2 + 1/x para el número proporcionado.
+6. Menu conteo de palabras: Llama a un proceso externo que crea un nuevo menu con las siguientes opciones.
+    1. Ingresar extensión de los archivos: Opcion para ingresar una extension como .txt.
+    2. Ingresar ruta de la carpeta de entrada: Opcion para ingresar la ruta a una carpeta donde se buscaran archivos con esa extension.
+    3. Ingresar ruta de la carpeta de entrada: Opcion para ingresar la ruta a una carpeta donde se dejaran .txt por cada archivo en la carpeta de entrada, que mostraran las palabras unicas y sus ocurrencias.
+    4. Ejecutar conteo de palabras: Si se uso el resto de opciones para ingresar informacion correctamente esta opcion va a buscar en la carpeta de entrada archivos con la extension dada, va a contar las ocurrencias de cada palabra unica, va a crear, por cada archivo leido, un txt en la carpeta de salida con cada palabra y sus ocurrencias, y mostrara en pantalla las rutas a esos txt y la cantidad de palabras diferentes que se anotaron en cada uno.
+    0. Salir: termina el proceso externo y vuelve al menu principal.
 Para usuarios "admin": Además de las opciones anteriores, los administradores tienen tres opciones adicionales:
 
 6. Agregar usuario: Permite agregar un nuevo usuario al sistema. Se solicita el nombre, contraseña y rol del usuario a agregar.
@@ -21,9 +27,9 @@ Para usuarios "admin": Además de las opciones anteriores, los administradores t
 
 1. Clonar el repositorio.
 
-2. Abrir el archivo desde la carpeta raíz, en donde se encuentra el archivo Makefile.
+2. Abrir el archivo desde la carpeta raíz, donde se encontraran dos carpetas "menu_principal" y "menu_secundario".
 
-3. Una vez en la carpeta, ejecutar 'make' en la consola. Esto compilará todos los archivos fuente y generará el ejecutable main.
+3. Para ambas carpetas, moverse a estas con algun comando como cd y ejecutar 'make' en la consola. Esto compilará todos los archivos fuente y generará el ejecutable main para ambos programas.
 
 Los archivos fuente (.c) se encuentran en la carpeta src
 Los archivos objetos (.o) se almacenan en la carpeta obj
@@ -33,7 +39,7 @@ Para eliminar los archivos objeto y el ejecutable, utilizar 'make clean'.
 
 *EJECUCIÓN
 
-Ejecutar el programa de la siguiente manera
+Ejecutar el programa de la siguiente manera en la carpeta de "menu_principal".
 
 ./main -u <usuario> -p <contraseña> -t "<texto>" -v "<vector>" -n <numero entero o flotante>
 

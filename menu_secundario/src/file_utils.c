@@ -10,7 +10,7 @@ void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDif
     char buffer[1024];
     int i;
     char *token;
-    char delimitadores[] = " \t\n\r\v\f";
+    char delimitadores[] = { '\t','\n','\r','\v','\f',';',','};
 
     struct {
         char palabra[1024];

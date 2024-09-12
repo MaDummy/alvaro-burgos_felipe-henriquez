@@ -21,10 +21,11 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
         printf("3: Contar cantidad de letras\n");
         printf("4: Promedio y sumatoria del vector\n");
         printf("5: Calcular f(x) = 5x*x + 1/x\n");
+        printf("6: Menu conteo de palabras\n");
         if(strcmp(rol, "admin") == 0){
-            printf("6: Agregar usuario\n");
-            printf("7: Listar usuarios\n");
-            printf("8: Eliminar usuario\n");
+            printf("7: Agregar usuario\n");
+            printf("8: Listar usuarios\n");
+            printf("9: Eliminar usuario\n");
         }
         printf("0: SALIR\n\n");
         if(opcion_valida)
@@ -56,7 +57,7 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
                 funcion_lineal(n);
                 break;
             case 6:
-                system("../../menu_secundario/main");
+                system("../menu_secundario/main");
                 break;
             case 0:
                 printf("Saliendo del programa...\n");

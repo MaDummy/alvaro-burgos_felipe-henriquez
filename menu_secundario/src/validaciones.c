@@ -13,11 +13,7 @@ void validExtention(char *extension){
     ".md",    // Archivos Markdown
     ".csv",   // Archivos de valores separados por comas
     ".log",   // Archivos de registros
-    ".xml",   // Archivos XML
-    ".json",  // Archivos JSON
     ".html",  // Archivos HTML
-    ".yaml",  // Archivos YAML
-    ".yml"    // Archivos YAML (alternativa)
     };
     int arrayLength = 9;
 

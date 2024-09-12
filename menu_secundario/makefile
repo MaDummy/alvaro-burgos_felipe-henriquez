@@ -1,4 +1,3 @@
-# Variables
 CC = gcc
 CFLAGS = -I./include
 SRCDIR = src

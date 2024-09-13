@@ -15,12 +15,12 @@ int main() {
 
     do {
         system("clear");
-        printf("════ ∘◦Menu de Conteo de Palabras◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
+        printf("════ ∘◦Menu de Conteo de Palabras◦∘ ════\n\n");
         printf("1: Ingresar extensión de los archivos (ej: .txt)\n");
         printf("2: Ingresar ruta de la carpeta de entrada\n");
         printf("3: Ingresar ruta de la carpeta de salida\n");
-        printf("4: Ejecutar conteo de palabras\n");
+        printf("4: Ejecutar conteo de palabras\n\n");
         printf("0: SALIR\n\n");
         printf("-Extension actual: %s\n",extension);
         printf("-Ruta carpeta de entrada actual: %s\n",ruta_entrada);

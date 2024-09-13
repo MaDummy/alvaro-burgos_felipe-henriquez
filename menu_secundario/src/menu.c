@@ -12,7 +12,7 @@ void regresa_menu(){
     int opcion;
     printf("\n\n\n");
     printf("1: Regresar al menú\n");
-    printf("2: SALIR\n\n");
+    printf("0: SALIR\n\n");
     printf("Escoja una opción: ");
     do{ 
         scanf("%d", &opcion);

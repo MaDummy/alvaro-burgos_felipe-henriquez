@@ -19,13 +19,13 @@ void regresa_menu(){
         switch(opcion){
             case 1:
                 break;
-            case 2:
+            case 0:
                 printf("Saliendo del programa... :(\n");
                 exit(0);
                 break;
             default:
                 printf("Error. Ingrese una opción válida: ");
         }
-    }while(opcion != 1 && opcion != 2);
+    }while(opcion != 1 && opcion != 0);
 }
 

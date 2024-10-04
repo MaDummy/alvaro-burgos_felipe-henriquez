@@ -10,7 +10,7 @@ void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDif
     char buffer[1024];
     int i;
     char *token;
-    char delimitadores[] = { '\t','\n','\r','\v','\f',';',','};
+    char delimitadores[] = " \t\n\r\v\f;,";
 
     struct {
         char palabra[1024];
@@ -45,7 +45,7 @@ void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDif
     *palabrasDiferentes = num_palabras;
 
     for (i = 0; i < num_palabras; i++) {
-        fprintf(archivoSalida, "%s: %d\n", conteo_palabras[i].palabra, conteo_palabras[i].ocurrencias);
+        fprintf(archivoSalida, "%s; %d\n", conteo_palabras[i].palabra, conteo_palabras[i].ocurrencias);
     }
 }
 

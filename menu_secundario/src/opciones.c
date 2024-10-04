@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include <unistd.h>
+#include <string.h>
 #include "../include/menu.h"  // Incluye la funcion regresa_menu
 #include "../include/file_utils.h"
 #include "../include/validaciones.h"
@@ -14,6 +15,16 @@ void procesamiento_archivos(char *directorioEntrada, char *extension, char *dire
         printf("PID: %d.\n\n", getpid());
         printf("No se puede ejecutar si no ha ingresado valores o alguno es invalido");
         regresa_menu();
+        return;
+    }
+
+    if(strcmp(directorioEntrada, directorioSalida) == 0){
+        system("clear");
+        printf("════ ∘◦Menu de Conteo de Palabras◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("El directorio de entrada no puede ser igual al de salida");
+        regresa_menu();
+        return;
     }
 
     validDirWithExtention(directorioEntrada, extension);

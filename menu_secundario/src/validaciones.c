@@ -15,7 +15,7 @@ void validExtention(char *extension){
     ".log",   // Archivos de registros
     ".html",  // Archivos HTML
     };
-    int arrayLength = 9;
+    int arrayLength = 5;
 
     int valida = 0;
     for(int i = 0; i < arrayLength; i++){

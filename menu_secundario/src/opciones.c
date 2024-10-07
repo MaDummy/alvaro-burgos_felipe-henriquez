@@ -29,8 +29,8 @@ void procesamiento_archivos(char *directorioEntrada, char *extension, char *dire
 
     validDirWithExtention(directorioEntrada, extension);
 
-    char* pathArchivosSalida[1024];
-    int cantidadPalabras[1024];
+    char* pathArchivosSalida[MAX_ARCHIVOS];
+    int cantidadPalabras[MAX_ARCHIVOS];
 
     int cantidadArchivos;
 

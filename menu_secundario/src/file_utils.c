@@ -3,19 +3,20 @@
 #include <string.h>
 #include <dirent.h>
 #include "../include/utils.h"
-
-
+#include "../include/file_utils.h"
 
 void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDiferentes) {
-    char buffer[1024];
+    char buffer[BUFFER_LINEA];
     int i;
+    int max_palabras = 10000;
     char *token;
     char delimitadores[] = " \t\n\r\v\f;,";
 
     struct {
-        char palabra[1024];
+        char palabra[MAX_PALABRA];
         int ocurrencias;
-    } conteo_palabras[1024];
+    } conteo_palabras[max_palabras];
+
     int num_palabras = 0;
 
 
@@ -33,7 +34,7 @@ void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDif
                 }
             }
 
-            if (!encontrada && num_palabras < 1024) {
+            if (!encontrada && num_palabras < max_palabras) {
                 strcpy(conteo_palabras[num_palabras].palabra, token);
                 conteo_palabras[num_palabras].ocurrencias = 1;
                 num_palabras++;
@@ -50,15 +51,15 @@ void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDif
 }
 
 
-void procesar_archivos(char *directorioEntrada, char *extension, char *directorioSalida, char *pathArchivosSalida[1024], int cantidadPalabras[1024], int *contadorArchivos) {
+void procesar_archivos(char *directorioEntrada, char *extension, char *directorioSalida, char *pathArchivosSalida[MAX_ARCHIVOS], int cantidadPalabras[MAX_ARCHIVOS], int *contadorArchivos) {
     DIR *dir;
     struct dirent *archivoActual;
     FILE *archivoEntrada, *archivoSalida;
-    char rutaEntrada[1024], rutaSalida[1024];
+    char rutaEntrada[MAX_PATH], rutaSalida[MAX_PATH];
     int cont = 0;
 
-    for (int i = 0; i < 1024; i++) {
-        pathArchivosSalida[i] = malloc(256 * sizeof(char)); 
+    for (int i = 0; i < MAX_ARCHIVOS; i++) {
+        pathArchivosSalida[i] = malloc(MAX_PATH * sizeof(char)); 
         if (pathArchivosSalida[i] == NULL) {
             fprintf(stderr, "Error al asignar memoria para la ruta de archivo %d\n", i);
             exit(EXIT_FAILURE);
@@ -95,8 +96,8 @@ void procesar_archivos(char *directorioEntrada, char *extension, char *directori
             fclose(archivoEntrada);
             fclose(archivoSalida);
 
-            strncpy(pathArchivosSalida[cont], rutaSalida, 256); 
-            pathArchivosSalida[cont][255] = '\0';
+            strncpy(pathArchivosSalida[cont], rutaSalida, MAX_PATH); 
+            pathArchivosSalida[cont][MAX_PATH] = '\0';
             cont++;
         }
     }

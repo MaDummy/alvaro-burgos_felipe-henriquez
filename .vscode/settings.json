@@ -5,6 +5,9 @@
         "ctype.h": "c",
         "stdio.h": "c",
         "stdbool.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "file_utils.h": "c",
+        "menu.h": "c",
+        "opciones.h": "c"
     }
 }

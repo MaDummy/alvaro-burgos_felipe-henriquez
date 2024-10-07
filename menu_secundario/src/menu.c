@@ -14,6 +14,9 @@ void regresa_menu(){
     printf("1: Regresar al menú\n");
     printf("0: SALIR\n\n");
     printf("Escoja una opción: ");
+
+    while (getchar() != '\n');
+
     do{ 
         scanf("%d", &opcion);
         switch(opcion){

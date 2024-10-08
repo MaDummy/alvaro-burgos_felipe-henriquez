@@ -4,14 +4,17 @@
 #include <stdbool.h>
 #include <sys/types.h>
 #include <string.h>
+#include "../include/utils.h"
+#include <unistd.h>
 
 void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *rol){
-    pid_t pid;
     int opcion;
     bool opcion_valida = true;
+    bool es_admin = (strcmp(rol, "admin") == 0);
+    exporta_env();
     do{
         system("clear");
-        printf("PID: %d\n", pid);
+        printf("PID: %d\n", getpid());
         printf("Usuario: %s\n", usuario);
         printf("Rol: \"%s\"\n\n", rol);
         printf("════ ∘◦Menu◦∘ ════\n\n");
@@ -22,7 +25,7 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
         printf("4: Promedio y sumatoria del vector\n");
         printf("5: Calcular f(x) = 5x*x + 1/x\n");
         printf("6: Menu conteo de palabras\n");
-        if(strcmp(rol, "admin") == 0){
+        if(es_admin){
             printf("7: Agregar usuario\n");
             printf("8: Listar usuarios\n");
             printf("9: Eliminar usuario\n");
@@ -57,24 +60,24 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
                 funcion_lineal(n);
                 break;
             case 6:
-                system("../menu_secundario/main");
+                system(getenv("ARCH_MENU"));
                 break;
             case 0:
                 printf("Saliendo del programa...\n");
                 exit(0);
                 break;
             case 7:
-                if(strcmp(rol, "admin") == 0){
+                if(es_admin){
                     anade_usuario();
                     break;
                 }
             case 8:
-                if(strcmp(rol, "admin") == 0){
+                if(es_admin){
                     listar_usuarios();
                     break;
                     }
             case 9:
-                if(strcmp(rol, "admin") == 0){
+                if(es_admin){
                     elimina_usuario();
                     break;
                     }

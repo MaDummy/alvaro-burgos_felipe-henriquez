@@ -43,13 +43,18 @@ int *crea_vector(char *vector, int *tamano){
 void suma_promedio_vector(int *vector, int tamano){
     system("clear");
     printf("════ ∘◦Opcion 4◦∘ ════\n\n");
-    int sumatoria = 0;
+    float sumatoria = 0;
     for(int i = 0; i < tamano; i++)
         sumatoria += vector[i];
     printf("Vector ingresado: ");
     imprime_vector(vector, tamano);
     printf("\n\n");
-    printf("La sumatoria del vector es de %d.\nEl promedio es de %d.", sumatoria, sumatoria/tamano);
+    if((sumatoria/tamano - (int)sumatoria/tamano) == 0){
+        int sumatoria_int = (int)sumatoria;
+        printf("La sumatoria del vector es de %.0f.\nEl promedio es de %d.", sumatoria, sumatoria_int/tamano);
+    }
+    else
+        printf("La sumatoria del vector es de %.0f.\nEl promedio es de %.3f.", sumatoria, sumatoria/tamano);
     regresa_menu();
 }
 
@@ -74,7 +79,6 @@ void es_palindromo(char *text){
     }
 
     // por cada índice, checa si el caracter del indice contrario es igual, si no, retorna falso
-    //amo a la blanca paloma
     for(int i = 0; i < (strlen(texto_nuevo)/2) && si_es; i++){
         if(texto_nuevo[i] != texto_nuevo[strlen(texto_nuevo)-i-1]){
             si_es = false;
@@ -166,7 +170,7 @@ void anade_usuario(){
     do{
         printf("Ingrese nuevo rol (generico/admin): ");
         scanf("%s", rol);
-        if(strcmp(rol, "generico") || strcmp(rol, "admin")) rol_val = true;
+        if(strcmp(rol, "generico") == 0 || strcmp(rol, "admin") == 0) rol_val = true;
     }while(!rol_val);
 
     FILE *file = fopen("data/users.txt", "a");
@@ -197,12 +201,12 @@ void listar_usuarios(){
         if (strlen(line) == 0) {
             continue;  // No imprimir líneas vacías
         }
-        char *user = strtok(line, ";");
+        char *user = strtok(line, "; ");
         strtok(NULL, ";");
-        char *rol = strtok(NULL, ";");
+        char *rol = strtok(NULL, "; ");
 
         // Imprimir la línea
-        printf("%d. \"%s\", Rol: \"%s\"\n", i++, user, rol);
+        printf("%d. \"%s\", Rol: %s\n", i++, user, rol);
     }
     regresa_menu();
 

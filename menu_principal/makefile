@@ -1,7 +1,7 @@
 # Variables
 CC = gcc
-CFLAGS = -I./include -I/usr/local/include/cjson -I/opt/homebrew/Cellar/cjson/1.7.18/include  # Incluye la ruta a los encabezados de cJSON
-LDFLAGS = -L/usr/local/lib -L/opt/homebrew/Cellar/cjson/1.7.18/lib -lcjson          # Incluye la ruta a las bibliotecas de cJSON
+CFLAGS = -I./include 
+LDFLAGS = -L/usr/local/lib 
 SRCDIR = src
 OBJDIR = obj
 TARGET = main

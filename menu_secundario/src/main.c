@@ -7,7 +7,7 @@
 #include "../include/file_utils.h"
 #include "../include/opciones.h"
 
-const int EXTENSION_SIZE = 20;
+#define EXTENSION_SIZE 20
 
 int main() {
         bool opcion_valida = 1;

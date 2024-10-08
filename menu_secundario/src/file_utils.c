@@ -5,17 +5,28 @@
 #include "../include/utils.h"
 #include "../include/file_utils.h"
 
+unsigned long hashstring(unsigned char *str){
+    unsigned long hash = 5381;
+    int c;
+
+    while ((c = *str++)){
+        hash = ((hash << 5) + hash) + c;
+    }
+    return hash % TAMANO_TABLA_HASH;
+}
+
 void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDiferentes) {
     char buffer[BUFFER_LINEA];
     int i;
-    int max_palabras = 10000;
+    int max_palabras = TAMANO_TABLA_HASH;
     char *token;
     char delimitadores[] = " \t\n\r\v\f;,";
 
-    struct {
-        char palabra[MAX_PALABRA];
-        int ocurrencias;
-    } conteo_palabras[max_palabras];
+    TablaHash tabla;
+    for (int i = 0; i < TAMANO_TABLA_HASH; i++) {
+        tabla.tabla[i] = NULL; // Inicializar punteros a NULL
+    }
+    tabla.palabrasDiferentesTabla = 0; // Inicializar el contador
 
     int num_palabras = 0;
 
@@ -26,27 +37,53 @@ void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDif
         while (token != NULL) {
 
             int encontrada = 0;
-            for (i = 0; i < num_palabras; i++) {
-                if (strcmp(conteo_palabras[i].palabra, token) == 0) {
-                    conteo_palabras[i].ocurrencias++;
-                    encontrada = 1;
+
+            unsigned long indice_hash = hashstring((unsigned char *)token);
+            NodoPalabra *nodo_actual = tabla.tabla[indice_hash];
+
+            while (nodo_actual != NULL) {
+                if (strcmp(nodo_actual->palabra, token) == 0) {
+                    nodo_actual->ocurrencias++;
                     break;
                 }
+                nodo_actual = nodo_actual->next;
             }
 
-            if (!encontrada && num_palabras < max_palabras) {
-                strcpy(conteo_palabras[num_palabras].palabra, token);
-                conteo_palabras[num_palabras].ocurrencias = 1;
-                num_palabras++;
+            if (nodo_actual == NULL) {
+                NodoPalabra *nuevo_nodo = malloc(sizeof(NodoPalabra));
+                if (nuevo_nodo == NULL) {
+                    fprintf(stderr, "Error al asignar memoria para una nueva palabra\n");
+                    exit(EXIT_FAILURE);
+                }
+                strcpy(nuevo_nodo->palabra, token);
+                nuevo_nodo->ocurrencias = 1;
+                nuevo_nodo->next = tabla.tabla[indice_hash];
+                tabla.tabla[indice_hash] = nuevo_nodo;
+
+                tabla.palabrasDiferentesTabla++;
             }
+
             token = strtok(NULL, delimitadores);
         }
     }
 
-    *palabrasDiferentes = num_palabras;
+    *palabrasDiferentes = tabla.palabrasDiferentesTabla;
 
-    for (i = 0; i < num_palabras; i++) {
-        fprintf(archivoSalida, "%s; %d\n", conteo_palabras[i].palabra, conteo_palabras[i].ocurrencias);
+    for (int i = 0; i < TAMANO_TABLA_HASH; i++) {
+        NodoPalabra *nodo_actual = tabla.tabla[i];
+        while (nodo_actual != NULL) {
+            fprintf(archivoSalida, "%s; %d\n", nodo_actual->palabra, nodo_actual->ocurrencias);
+            nodo_actual = nodo_actual->next;
+        }
+    }
+
+    for (int i = 0; i < TAMANO_TABLA_HASH; i++) {
+        NodoPalabra *nodo_actual = tabla.tabla[i];
+        while (nodo_actual != NULL) {
+            NodoPalabra *temp = nodo_actual;
+            nodo_actual = nodo_actual->next;
+            free(temp);
+        }
     }
 }
 

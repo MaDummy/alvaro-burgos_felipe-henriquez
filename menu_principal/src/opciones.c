@@ -173,7 +173,7 @@ void anade_usuario(){
         if(strcmp(rol, "generico") == 0 || strcmp(rol, "admin") == 0) rol_val = true;
     }while(!rol_val);
 
-    FILE *file = fopen("data/users.txt", "a");
+    FILE *file = fopen(filename, "a");
     fprintf(file, "%s; %s; %s\n", user, pass, rol);
 
     fclose(file);
@@ -187,7 +187,7 @@ void listar_usuarios(){
     exporta_env();
     char *filename = getenv("ARCH_USUARIOS");
     // Abrir el archivo en modo de lectura
-    FILE *file = fopen("data/users.txt", "r");
+    FILE *file = fopen(filename, "r");
     char line[100];
     int i = 1;
 

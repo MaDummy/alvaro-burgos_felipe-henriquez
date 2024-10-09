@@ -12,8 +12,12 @@ menu_principal:
 menu_secundario:
 	$(MAKE) -C menu_secundario
 
+conteo_paralelo:
+	$(MAKE) -C conteo_paralelo
+
 # Limpiar ambos proyectos
 clean:
 	$(MAKE) -C menu_principal clean
 	$(MAKE) -C menu_secundario clean
+	$(MAKE) -C conteo_paralelo clean
 	rm -f main

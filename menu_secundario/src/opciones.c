@@ -5,6 +5,7 @@
 #include "../include/menu.h"  // Incluye la funcion regresa_menu
 #include "../include/file_utils.h"
 #include "../include/validaciones.h"
+#include <time.h>
 
 
 void procesamiento_archivos(char *directorioEntrada, char *extension, char *directorioSalida){

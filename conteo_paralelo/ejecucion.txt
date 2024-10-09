@@ -1,0 +1,1 @@
+./main ../tests/inputs ..tests/outputs .txt 4 ..data/conteo_palabras/mapa_archivos.txt ..data/conteo_palabras/stop_word.txt

@@ -3,7 +3,7 @@ CFLAGS = -I./include
 SRCDIR = src
 OBJDIR = obj
 TARGET = main
-SRCFILES = main.c utils.c
+SRCFILES = main.c utils.c menu.c validaciones.c
 OBJFILES = $(SRCFILES:.c=.o)
 OBJS = $(addprefix $(OBJDIR)/, $(OBJFILES))
 

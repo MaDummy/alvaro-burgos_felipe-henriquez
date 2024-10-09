@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h> // Para usar booleanos
 #include <ctype.h>   // Para funciones de caracteres (isdigit, tolower)
+#include <unistd.h>
 //#include <bits/getopt_core.h> // Tira error si no se implementa ojo piojo
 #include "../include/menu.h"  // Incluye la funcion regresa_menu
 #include "../include/validaciones.h"
@@ -145,6 +146,91 @@ void funcion_lineal(double n){
         }
     }
     regresa_menu();
+}
+
+void conteo_palabras_paralelo(){
+    char comando[2048] = "";
+    char *process_path = getenv("ARCH_CONTEO_THREADS");
+    char *input_path = getenv("PATH_INPUT");
+    char *output_path = getenv("PATH_OUTPUT");
+    char *extension = getenv("EXTENSION");
+    char *threads = getenv("CANTIDAD_THREADS");
+    char *path_mapa = getenv("MAPA_ARCHIVOS");
+    char *stop_words = getenv("STOP_WORD");
+
+    if(process_path == NULL || *process_path == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno ARCH_CONTEO_THREADS no esta definida");
+        regresa_menu();
+        return;
+    }
+
+    if(input_path == NULL || *input_path == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno PATH_INPUT no esta definida");
+        regresa_menu();
+        return;
+    }
+
+    if(output_path == NULL || *output_path == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno PATH_OUTPUT no esta definida");
+        regresa_menu();
+        return;
+    }
+    
+    if(extension == NULL || *extension == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno EXTENSION no esta definida");
+        regresa_menu();
+        return;
+    }
+
+    if(threads == NULL || *threads == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno CANTIDAD_THREADS no esta definida");
+        regresa_menu();
+        return;
+    }
+
+    if(path_mapa == NULL || *path_mapa == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno MAPA_ARCHIVOS no esta definida");
+        regresa_menu();
+        return;
+    }
+
+    if(stop_words == NULL || *stop_words == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno STOP_WORD no esta definida");
+        regresa_menu();
+        return;
+    }
+
+    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s",
+             process_path,
+             input_path,
+             output_path,
+             extension,
+             threads,
+             path_mapa,
+             stop_words);
+
+    system(comando);
 }
 
 

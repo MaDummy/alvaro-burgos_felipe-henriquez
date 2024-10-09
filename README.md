@@ -19,27 +19,27 @@ Para usuarios con el rol "generico":
     0. Salir: termina el proceso externo y vuelve al menu principal.
 Para usuarios "admin": Además de las opciones anteriores, los administradores tienen tres opciones adicionales:
 
-6. Agregar usuario: Permite agregar un nuevo usuario al sistema. Se solicita el nombre, contraseña y rol del usuario a agregar.
-7. Listar usuarios: Muestra una lista con los nombres y roles de todos los usuarios.
-8. Eliminar usuario: Elimina un usuario del sistema si el usuario a eliminar tiene el rol "generico". El programa solicita el nombre del usuario para proceder.
+8. Agregar usuario: Permite agregar un nuevo usuario al sistema. Se solicita el nombre, contraseña y rol del usuario a agregar.
+9. Listar usuarios: Muestra una lista con los nombres y roles de todos los usuarios.
+10. Eliminar usuario: Elimina un usuario del sistema si el usuario a eliminar tiene el rol "generico". El programa solicita el nombre del usuario para proceder.
 
 *COMPILACIÓN PASO A PASO
 
 1. Clonar el repositorio.
 
-2. Abrir el archivo desde la carpeta raíz, donde se encontraran dos carpetas "menu_principal" y "menu_secundario".
+2. Abrir el archivo desde la carpeta raíz
 
-3. Para ambas carpetas, moverse a estas con algun comando como cd y ejecutar 'make' en la consola. Esto compilará todos los archivos fuente y generará el ejecutable main para ambos programas.
+3. usar comando "make"
 
 Los archivos fuente (.c) se encuentran en la carpeta src
 Los archivos objetos (.o) se almacenan en la carpeta obj
-El ejecutable final (main) se generará en la carpeta raíz (misma altura del makefile)
+Para cada carpeta se genera un main, a excepcion de menu_principal, su ejecutable se mueve a la carpeta raíz
 
 Para eliminar los archivos objeto y el ejecutable, utilizar 'make clean'.
 
 *EJECUCIÓN
 
-Ejecutar el programa de la siguiente manera en la carpeta de "menu_principal".
+Ejecutar el programa de la siguiente manera en la carpeta raíz
 
 ./main -u <usuario> -p <contraseña> -t "<texto>" -v "<vector>" -n <numero entero o flotante>
 
@@ -57,3 +57,5 @@ Consideraciones:
 - El valor -n debe ser un número entero o flotante (decimal).
 
 - TODOS los parámetros son obligatorios.
+
+- Para el menu de conteo de palabras no puede entregar la misma carpeta para input y output

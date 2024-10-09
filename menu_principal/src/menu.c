@@ -64,7 +64,7 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
                 system(getenv("ARCH_MENU"));
                 break;
             case 7:
-                system(getenv("ARCH_CONTEO_THREADS"));
+                conteo_palabras_paralelo();
                 break;
             case 0:
                 printf("Saliendo del programa...\n");

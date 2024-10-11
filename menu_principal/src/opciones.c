@@ -234,13 +234,19 @@ void conteo_palabras_paralelo(){
 }
 
 
+void crear_indice_invertido(){
+    system("clear");
+    printf("Aun no existo\n");
+    return;
+}
+
 void anade_usuario(){
     exporta_env();
     char *filename = getenv("ARCH_USUARIOS");
     char user[50], pass[50], rol[50], linea[150];
     bool user_val = false, pass_val = false, rol_val = false;
     system("clear");
-    printf("════ ∘◦Opcion 8◦∘ ════\n\n");
+    printf("════ ∘◦Opcion 9◦∘ ════\n\n");
     do{
         printf("Ingrese un usuario de largo minimo 3, sin numeros ni caracteres especiales: ");
         scanf("%s", user);
@@ -278,7 +284,7 @@ void listar_usuarios(){
     int i = 1;
 
     system("clear");
-    printf("════ ∘◦Opcion 9◦∘ ════\n\n");
+    printf("════ ∘◦Opcion 10◦∘ ════\n\n");
     // Leer el archivo línea por línea
     while (fgets(line, sizeof(line), file)) {
         // Eliminar el salto de línea al final de la línea, si existe
@@ -315,7 +321,7 @@ void elimina_usuario(){
     bool se_elimino = false;
     
     system("clear");
-    printf("════ ∘◦Opcion 10◦∘ ════\n\n");
+    printf("════ ∘◦Opcion 11◦∘ ════\n\n");
     printf("Ingrese usuario a eliminar: ");
     scanf("%s", usuario);
 

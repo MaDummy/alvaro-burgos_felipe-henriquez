@@ -26,10 +26,11 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
         printf("5: Calcular f(x) = 5x*x + 1/x\n");
         printf("6: Menu conteo de palabras\n");
         printf("7: Conteo de palabras con %s threads\n", getenv("CANTIDAD_THREADS"));
+        printf("8: Crear indice invertid\n");
         if(es_admin){
-            printf("8: Agregar usuario\n");
-            printf("9: Listar usuarios\n");
-            printf("10: Eliminar usuario\n");
+            printf("9: Agregar usuario\n");
+            printf("10: Listar usuarios\n");
+            printf("11: Eliminar usuario\n");
         }
         printf("0: SALIR\n\n");
         if(opcion_valida)
@@ -66,21 +67,24 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
             case 7:
                 conteo_palabras_paralelo();
                 break;
+            case 8:
+                crear_indice_invertido();
+                break;
             case 0:
                 printf("Saliendo del programa...\n");
                 exit(0);
                 break;
-            case 8:
+            case 9:
                 if(es_admin){
                     anade_usuario();
                     break;
                 }
-            case 9:
+            case 10:
                 if(es_admin){
                     listar_usuarios();
                     break;
                     }
-            case 10:
+            case 11:
                 if(es_admin){
                     elimina_usuario();
                     break;

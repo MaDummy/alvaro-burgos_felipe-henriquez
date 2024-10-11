@@ -44,15 +44,19 @@ void funcion_lineal(double n);
 void conteo_palabras_paralelo();
 
 
-/// @brief Opcion 8 (admin): Añade un usuario a la base de datos
+/// @brief Opcion 8: Si ya se ejecuto la opcion 8, se crea un indice invertido
+void crear_indice_invertido();
+
+
+/// @brief Opcion 9 (admin): Añade un usuario a la base de datos
 void anade_usuario();
 
 
-/// @brief Opcion 9 (admin): Lista los usuarios registrados en la base de datos.
+/// @brief Opcion 10 (admin): Lista los usuarios registrados en la base de datos.
 void listar_usuarios();
 
 
-/// @brief Opcion 10 (admin): Elimina a un usuario con el rol "generico"
+/// @brief Opcion 11 (admin): Elimina a un usuario con el rol "generico"
 void elimina_usuario();
 
 #endif

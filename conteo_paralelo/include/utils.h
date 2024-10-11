@@ -7,8 +7,14 @@
 /// @param extension Extensión de los archivos a indexar
 void escribe_hashmap(const char *const ruta_hash, const char *const ruta_inputs, const char *const extension);
 
-/// @brief Valida que el directorio exista
-/// @param path Ruta del archivo a validar
-void validDir(char *path);
+/// @brief Función hash
+/// @param str Texto al que se le aplicará la función
+/// @return Función hash del texto
+unsigned long hash(unsigned char *str);
+
+/// @brief Función que filtra un texto con las stopwords creando un archivo temporal
+/// @param texto 
+/// @param stopwords 
+void filtra_stopword(const char *const texto, const char *const stopwords, const char *const path_copys);
 
 #endif

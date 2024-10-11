@@ -34,10 +34,13 @@ void escribe_hashmap(const char *const ruta_hash, const char *const ruta_inputs,
         }
     }
 
-
-
     //Se cierran todos los archivos/directorios
     closedir(directorio); 
     fclose(hash_file);
+    return;
+}
+
+
+void filtra_stopword(const char *const texto, const char *const stopwords, const char *const path_copys){
     return;
 }

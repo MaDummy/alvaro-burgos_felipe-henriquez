@@ -17,4 +17,14 @@ unsigned long hash(unsigned char *str);
 /// @param stopwords 
 void filtra_stopword(const char *const texto, const char *const stopwords, const char *const path_copys);
 
+/// @brief Funcion que crea un array de stopwords
+/// @param path_stopwords Path donde se encuentran las stopwords
+/// @return Arreglo con stopwords
+char **crea_arr_stopwords(const char *const path_stopwords);
+
+/// @brief Escribe una copia del archivo en una ruta distinta
+/// @param ruta_orig Ruta original del archivo que se busca copiar
+/// @param path_copys Ruta donde se busca guardar la copia del archivo
+char *escribe_copia(const char *const ruta_orig, const char *const path_copys);
+
 #endif

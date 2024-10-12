@@ -14,7 +14,8 @@ int main(int argc, char *argv[]){
 
     
     escribe_hashmap(arch_hash, ruta_tests, extension);
-    
+    char **stopwords = crea_arr_stopwords(arch_stopwords);
+    filtra_stopword("../tests/inputs/don.txt", arch_stopwords, "../tests/inputs_filter");    
 
     return 0;
 }

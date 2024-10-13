@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
     filtra_stopwords_threads(ruta_tests, stopwords, copy_path, cantidad_threads, extension);
 
     printf("Procesando conteo de palabras..\n\n");
-    procesamiento_archivos(ruta_tests, extension, ruta_outputs, cantidad_threads);
+    procesamiento_archivos(copy_path, extension, ruta_outputs, cantidad_threads);
 
     printf("Proceso realizado con éxito!");
 

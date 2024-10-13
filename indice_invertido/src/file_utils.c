@@ -18,9 +18,9 @@ unsigned long hashstring(unsigned char *str){
 
 void leerMapaArchivos(char *mapa_archivos_path, char nombres_archivos[MAX_ARCHIVOS][MAX_NOM_ARCHIVO], int ids[MAX_ARCHIVOS], int *cantidad_archivos) {
     FILE *file = fopen(mapa_archivos_path, "r");
-    if (!file) {
-        perror("Error al abrir el archivo de mapa de archivos");
-        exit(1);
+    if (file == NULL) {
+        fprintf(stderr, "Error: No sep uede abrir %s\n", mapa_archivos_path);
+        exit(EXIT_FAILURE);
     }
 
     *cantidad_archivos = 0;
@@ -92,10 +92,10 @@ void procesarArchivosOutput(TablaHash *tabla, char *path_output, char *extension
         snprintf(file_path, sizeof(file_path), "%s/%d%s", path_output, ids[i], extension);
 
         FILE *file = fopen(file_path, "r");
-        if (!file) {
-            perror("Error al abrir archivo de salida");
-            continue;
-        }
+        if (file == NULL) {
+        fprintf(stderr, "Error: no se puede abrir %s\n", file_path);
+        exit(EXIT_FAILURE);
+    }
 
         char line[BUFFER_LINEA];
         while (fgets(line, sizeof(line), file)) {
@@ -122,9 +122,9 @@ void procesarArchivosOutput(TablaHash *tabla, char *path_output, char *extension
 
 void escribirIndiceInvertido(char *inverted_index_path, TablaHash *tabla) {
     FILE *file = fopen(inverted_index_path, "w");
-    if (!file) {
-        perror("Error al abrir archivo de índice invertido");
-        exit(1);
+    if (file == NULL) {
+        fprintf(stderr, "Error: no se puede abrir %s\n", inverted_index_path);
+        exit(EXIT_FAILURE);
     }
 
     for (int i = 0; i < TAMANO_TABLA_HASH; i++) {

@@ -7,7 +7,7 @@
 int main(int argc, char **argv){
     
     if (argc != 2) {
-        fprintf(stderr, "Uso: %s <path_index>\n", argv[0]);
+        fprintf(stderr, "Error al llamar indice_invertido, se requiere 1 parametro y se pasaron %d", argc - 1);
         return 1;
     }
 
@@ -19,7 +19,6 @@ int main(int argc, char **argv){
     char *mapa_archivos = getenv("MAPA_ARCHIVOS");
     char *extension = getenv("EXTENSION");
 
-    //Inicializar tabla
     TablaHash tabla;
     tabla.palabrasDiferentesTabla = 0;
     for (int i = 0; i < TAMANO_TABLA_HASH; i++) {

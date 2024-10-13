@@ -199,18 +199,10 @@ void procesar_archivos_paralelo(const char *const directorioEntrada, const char 
 }
 
 void procesamiento_archivos(const char *const directorioEntrada, const char *const extension, const char *const directorioSalida, const int MAX_THREADS){
-    system("clear");
-
     char* pathArchivosSalida[MAX_ARCHIVOS];
     int cantidadPalabras[MAX_ARCHIVOS];
 
     int cantidadArchivos;
 
-    system("clear");
-    printf("════ ∘◦Menu de Conteo de Palabras en paralelo◦∘ ════\n\n");
-    printf("PID: %d.\n\n", getpid());
-
     procesar_archivos_paralelo(directorioEntrada, extension, directorioSalida, pathArchivosSalida, cantidadPalabras, &cantidadArchivos, MAX_THREADS);
-    
-    regresa_menu();
 }

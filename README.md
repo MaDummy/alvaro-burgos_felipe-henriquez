@@ -1,7 +1,7 @@
 README - Menú de opciones en C
 
 DESCRIPCIÓN
-Este programa está diseñado para ejecutarse en sistemas Unix/Linux/Mac y permite al usuario interactuar con varias funcionalidades a través de un menú. Existen dos roles: admin y generico. Las opciones varían según el rol del usuario.
+Este programa está diseñado para ejecutarse en sistemas Unix/Linux y permite al usuario interactuar con varias funcionalidades a través de un menú. Existen dos roles: admin y generico. Las opciones varían según el rol del usuario.
 
 Para usuarios con el rol "generico":
 
@@ -17,11 +17,15 @@ Para usuarios con el rol "generico":
     3. Ingresar ruta de la carpeta de entrada: Opcion para ingresar la ruta a una carpeta donde se dejaran .txt por cada archivo en la carpeta de entrada, que mostraran las palabras unicas y sus ocurrencias.
     4. Ejecutar conteo de palabras: Si se uso el resto de opciones para ingresar informacion correctamente esta opcion va a buscar en la carpeta de entrada archivos con la extension dada, va a contar las ocurrencias de cada palabra unica, va a crear, por cada archivo leido, un txt en la carpeta de salida con cada palabra y sus ocurrencias, y mostrara en pantalla las rutas a esos txt y la cantidad de palabras diferentes que se anotaron en cada uno.
     0. Salir: termina el proceso externo y vuelve al menu principal.
+7. Conteo paralelo: Esto lo llenas tu
+8. Crear indice invertido: Solo si ya se ejecuto conteo paralelo. Lee el output de este para crear un archivo .INDEX con formato palabra;(IDX,ocurrencias);(IDX2,ocurrencias2)
+
+
 Para usuarios "admin": Además de las opciones anteriores, los administradores tienen tres opciones adicionales:
 
-8. Agregar usuario: Permite agregar un nuevo usuario al sistema. Se solicita el nombre, contraseña y rol del usuario a agregar.
-9. Listar usuarios: Muestra una lista con los nombres y roles de todos los usuarios.
-10. Eliminar usuario: Elimina un usuario del sistema si el usuario a eliminar tiene el rol "generico". El programa solicita el nombre del usuario para proceder.
+9. Agregar usuario: Permite agregar un nuevo usuario al sistema. Se solicita el nombre, contraseña y rol del usuario a agregar.
+10. Listar usuarios: Muestra una lista con los nombres y roles de todos los usuarios.
+11. Eliminar usuario: Elimina un usuario del sistema si el usuario a eliminar tiene el rol "generico". El programa solicita el nombre del usuario para proceder.
 
 *COMPILACIÓN PASO A PASO
 
@@ -33,7 +37,7 @@ Para usuarios "admin": Además de las opciones anteriores, los administradores t
 
 Los archivos fuente (.c) se encuentran en la carpeta src
 Los archivos objetos (.o) se almacenan en la carpeta obj
-Para cada carpeta se genera un main, a excepcion de menu_principal, su ejecutable se mueve a la carpeta raíz
+Para cada carpeta se genera un main, el de menu_principal mueve a la carpeta raíz
 
 Para eliminar los archivos objeto y el ejecutable, utilizar 'make clean'.
 
@@ -59,3 +63,10 @@ Consideraciones:
 - TODOS los parámetros son obligatorios.
 
 - Para el menu de conteo de palabras no puede entregar la misma carpeta para input y output
+
+- Conteo paralelo e indice invertido usan variables de entorno para decidir carpetas de input, output y extension de los archivos. Por defecto estas estan definidas con carpetas que vienen con el programa, se pueden modificar en el .env de la carpeta raiz. Las variables de entorno que le interesaria cambiar al usuario son:
+    - CANTIDAD_THREADS: Con cuantos threads se hace el conteo paralelo
+    - INVERTED_INDEX: Output donde guardar el archivo output de inverted_index, debe terminar en nombre.INDEX
+    - PATH_INPUT: Path a carpeta con textos que se desean procesar en conteo de palabras paralelo
+    - PATH_OUTPUT: Path a carpeta donde se desea guardar output de conteo de palabras paralelo
+    - EXTENSION: Extension de los archivos que se desean procesar

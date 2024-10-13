@@ -5,19 +5,13 @@
 
 
 int main(int argc, char **argv){
-
-    printf("llegue aqui");
     
     if (argc != 2) {
         fprintf(stderr, "Uso: %s <path_index>\n", argv[0]);
         return 1;
     }
 
-    printf("llegue aqui");
-
     char *path_index = argv[1];
-
-    printf("llegue aqui");
 
     exporta_env();
 

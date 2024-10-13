@@ -89,7 +89,7 @@ void procesarArchivosOutput(TablaHash *tabla, char *path_output, char *extension
     int ocurrencias;
 
     for (int i = 0; i < cantidad_archivos; i++) {
-        snprintf(file_path, sizeof(file_path), "%s/%s%s", path_output, nombres_archivos[i], extension);
+        snprintf(file_path, sizeof(file_path), "%s/%d%s", path_output, ids[i], extension);
 
         FILE *file = fopen(file_path, "r");
         if (!file) {

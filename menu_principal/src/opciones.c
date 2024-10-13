@@ -148,7 +148,7 @@ void funcion_lineal(double n){
     regresa_menu();
 }
 
-void conteo_palabras_paralelo(){
+int conteo_palabras_paralelo(){
     char comando[2048] = "";
     char *process_path = getenv("ARCH_CONTEO_THREADS");
     char *input_path = getenv("PATH_INPUT");
@@ -157,87 +157,130 @@ void conteo_palabras_paralelo(){
     char *threads = getenv("CANTIDAD_THREADS");
     char *path_mapa = getenv("MAPA_ARCHIVOS");
     char *stop_words = getenv("STOP_WORD");
+    char *copy_path = getenv("PATH_COPY");
 
     if(process_path == NULL || *process_path == '\0'){
         system("clear");
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
-        printf("ERROR, variable de entorno ARCH_CONTEO_THREADS no esta definida");
+        printf("ERROR, variable de entorno ARCH_CONTEO_THREADS no esta definida\n");
         regresa_menu();
-        return;
+        return -1;
     }
 
     if(input_path == NULL || *input_path == '\0'){
         system("clear");
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
-        printf("ERROR, variable de entorno PATH_INPUT no esta definida");
+        printf("ERROR, variable de entorno PATH_INPUT no esta definida\n");
         regresa_menu();
-        return;
+        return -1;
     }
 
     if(output_path == NULL || *output_path == '\0'){
         system("clear");
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
-        printf("ERROR, variable de entorno PATH_OUTPUT no esta definida");
+        printf("ERROR, variable de entorno PATH_OUTPUT no esta definida\n");
         regresa_menu();
-        return;
+        return -1;
     }
     
     if(extension == NULL || *extension == '\0'){
         system("clear");
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
-        printf("ERROR, variable de entorno EXTENSION no esta definida");
+        printf("ERROR, variable de entorno EXTENSION no esta definida\n");
         regresa_menu();
-        return;
+        return -1;
     }
 
     if(threads == NULL || *threads == '\0'){
         system("clear");
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
-        printf("ERROR, variable de entorno CANTIDAD_THREADS no esta definida");
+        printf("ERROR, variable de entorno CANTIDAD_THREADS no esta definida\n");
         regresa_menu();
-        return;
+        return -1;
     }
 
     if(path_mapa == NULL || *path_mapa == '\0'){
         system("clear");
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
-        printf("ERROR, variable de entorno MAPA_ARCHIVOS no esta definida");
+        printf("ERROR, variable de entorno MAPA_ARCHIVOS no esta definida\n");
         regresa_menu();
-        return;
+        return -1;
     }
 
     if(stop_words == NULL || *stop_words == '\0'){
         system("clear");
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
-        printf("ERROR, variable de entorno STOP_WORD no esta definida");
+        printf("ERROR, variable de entorno STOP_WORD no esta definida\n");
         regresa_menu();
-        return;
+        return -1; 
     }
 
-    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s",
+    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s %s",
              process_path,
              input_path,
              output_path,
              extension,
              threads,
              path_mapa,
-             stop_words);
+             stop_words,
+             copy_path);
 
-    system(comando);
+    return system(comando);
 }
 
 
-void crear_indice_invertido(){
-    system("clear");
-    printf("Aun no existo\n");
-    return;
+void crear_indice_invertido(int ejecucion_conteo_paralelo){
+    if (ejecucion_conteo_paralelo == -1){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("Hubo un error con el conteo paralelo, no se puede ejecutar esta opcion\n");
+        regresa_menu();
+        return;
+    }
+
+    if (ejecucion_conteo_paralelo == 1){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("Aun no se ejecuta el conteo paralelo, no se puede ejecutar esta opcion\n");
+        regresa_menu();
+        return;
+    }
+
+    char *path_index = getenv("INVERTED_INDEX");
+    char *path_index_process = getenv("INVERTED_INDEX_PROCESS");
+
+    if(path_index == NULL || *path_index == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno INVERTED_INDEX no esta definida\n");
+        regresa_menu();
+        return;
+    }
+
+    if(path_index_process == NULL || *path_index_process == '\0'){
+        system("clear");
+        printf("════ ∘◦Menu◦∘ ════\n\n");
+        printf("PID: %d.\n\n", getpid());
+        printf("ERROR, variable de entorno INVERTED_INDEX_PROCESS no esta definida\n");
+        regresa_menu();
+        return;
+    }
+
+    char comando[512] = "";
+
+    snprintf(comando, sizeof(comando), "%s %s", path_index_process, path_index);
+
+    system(comando);
 }
 
 void anade_usuario(){

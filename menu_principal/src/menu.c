@@ -9,6 +9,7 @@
 
 void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *rol){
     int opcion;
+    int ejecucion_conteo_paralelo = 0;
     bool opcion_valida = true;
     bool es_admin = (strcmp(rol, "admin") == 0);
     exporta_env();
@@ -65,10 +66,10 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
                 system(getenv("ARCH_MENU"));
                 break;
             case 7:
-                conteo_palabras_paralelo();
+                ejecucion_conteo_paralelo = conteo_palabras_paralelo();
                 break;
             case 8:
-                crear_indice_invertido();
+                crear_indice_invertido(ejecucion_conteo_paralelo);
                 break;
             case 0:
                 printf("Saliendo del programa...\n");

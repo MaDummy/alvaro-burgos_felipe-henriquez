@@ -41,11 +41,12 @@ void funcion_lineal(double n);
 
 
 /// @brief Opcion 7: Llama al conteo de palabras con threads
-void conteo_palabras_paralelo();
+int conteo_palabras_paralelo();
 
 
 /// @brief Opcion 8: Si ya se ejecuto la opcion 8, se crea un indice invertido
-void crear_indice_invertido();
+/// @param ejecucion_conteo_paralelo Entero que dice si se ejecuto el conteo paralelo
+void crear_indice_invertido(int ejecucion_conteo_paralelo);
 
 
 /// @brief Opcion 9 (admin): Añade un usuario a la base de datos

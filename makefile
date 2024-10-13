@@ -1,7 +1,7 @@
-.PHONY: all clean menu_principal menu_secundario
+.PHONY: all clean menu_principal menu_secundario conteo_paralelo indice_invertido
 
 # Compilar ambos proyectos
-all: menu_principal menu_secundario
+all: menu_principal menu_secundario conteo_paralelo indice_invertido
 
 # Compilar menu_principal y mover el ejecutable al nivel superior sin renombrarlo
 menu_principal:
@@ -15,9 +15,13 @@ menu_secundario:
 conteo_paralelo:
 	$(MAKE) -C conteo_paralelo
 
+indice_invertido:
+	$(MAKE) -C indice_invertido
+
 # Limpiar ambos proyectos
 clean:
 	$(MAKE) -C menu_principal clean
 	$(MAKE) -C menu_secundario clean
 	$(MAKE) -C conteo_paralelo clean
+	$(MAKE) -C indice_invertido clean
 	rm -f main

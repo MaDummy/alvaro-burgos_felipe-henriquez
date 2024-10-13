@@ -1,4 +1,4 @@
-tests3.txt, 2003034372
-tests.txt, 581196777
-don.txt, 542070328
-tests2.txt, 2001848451
+tests3, 72397
+tests, 53709
+don, 83868
+tests2, 72396

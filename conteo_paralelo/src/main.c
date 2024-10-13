@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/utils.h"
+#include "../include/cuenta_pal.h"
+#include "../include/stopwords.h"
 
 // ejecutar como ./main <ruta_tests> <ruta_outputs> <extension> <cantidad> <mapa_archivos> <stop_words> <ruta_copias>
 int main(int argc, char *argv[]){
@@ -15,9 +16,8 @@ int main(int argc, char *argv[]){
     
     escribe_hashmap(arch_hash, ruta_tests, extension);
     char **stopwords = crea_arr_stopwords(arch_stopwords);
-    // Aqui se debe aplicar el filtra_stopword en paralelo
     filtra_stopwords_threads(ruta_tests, stopwords, copy_path, cantidad_threads, extension);
-    // Aqui se debe aplicar el conteo paralelo
+    procesamiento_archivos(ruta_tests, extension, ruta_outputs, cantidad_threads);
 
     return 0;
 }

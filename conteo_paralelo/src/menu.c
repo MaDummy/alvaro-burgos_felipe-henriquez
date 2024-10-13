@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 
-void regresa_menu(){
+int regresa_menu(){
     bool opcion_valida = true;
     int opcion;
     printf("\n\n\n");

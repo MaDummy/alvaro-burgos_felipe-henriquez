@@ -1,4 +1,20 @@
-tests3, 72397
-tests, 53709
+Dracula, 78332
+Sherlock Holmes, 93651
+biblia3, 42976
+Demian, 1755
+biblia, 80091
+Leviathan, 80745
+The count of monte cristo, 43719
+Frankenstein, 23785
+Dream of the red chamber, 91259
+The Odyssey, 18397
 don, 83868
-tests2, 72396
+biblia2, 42975
+Wuthering heights, 39402
+novelas_ejemplares, 56695
+The divine comedy, 6680
+Moby dick, 59219
+The Iliad, 49628
+hamlet, 93504
+orgullo y prejuicio, 84494
+20000 leagues under the sea, 84021

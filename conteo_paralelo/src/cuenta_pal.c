@@ -43,7 +43,7 @@ void *contar_palabras(void *args) {
     int i;
     int max_palabras = TAMANO_TABLA_HASH;
     char *token;
-    char delimitadores[] = " \t\n\r\v\f;,.:\"\'()‘“_¿?¡!";
+    char delimitadores[] = " \t\n\r\v\f;,.:\"\'()‘“_¿?¡![]";
 
     TablaHash tabla;
     for (int i = 0; i < TAMANO_TABLA_HASH; i++) {

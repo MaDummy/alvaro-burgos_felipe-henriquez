@@ -15,20 +15,20 @@
 void contar_palabras(FILE *archivoEntrada, FILE *archivoSalida, int *palabrasDiferentes);
 
 /// @brief Funcion principal que procesa los archivos de forma paralela
-/// @param directorioEntrada 
-/// @param extension 
-/// @param directorioSalida 
-/// @param pathArchivosSalida 
-/// @param cantidadPalabras 
-/// @param contadorArchivos 
-/// @param MAX_THREADS
+/// @param directorioEntrada Directorio en el cual se procesaran los archivos
+/// @param extension Extension de los archivos a procesar
+/// @param directorioSalida Directorio en donde saldran los output de los archivos procesados
+/// @param pathArchivosSalida Puntero que apunta al path de los archivos de salida
+/// @param cantidadPalabras Puntero que apunta a la cantidad de palabras
+/// @param contadorArchivos Puntero que cuenta los archivos
+/// @param MAX_THREADS Cantidad maxima de threads activos
 void procesar_archivos_paralelo(const char *const directorioEntrada, const char *const extension, const char *const directorioSalida, char *pathArchivosSalida[MAX_ARCHIVOS], int cantidadPalabras[MAX_ARCHIVOS], int *contadorArchivos, const int MAX_THREADS);
 
-/// @brief Funcion que llama 
-/// @param directorioEntrada 
-/// @param extension 
-/// @param directorioSalida 
-/// @param MAX_THREADS
+/// @brief Funcion que llama a procesar_archivos_paralelo
+/// @param directorioEntrada Directorio en donde se procesaran los archivos
+/// @param extension Extension de los archivos a procesar
+/// @param directorioSalida Directorio en donde saldran los output de los archivos procesados
+/// @param MAX_THREADS Cantidad maxima de threads activos
 void procesamiento_archivos(const char *const directorioEntrada, const char *const extension, const char *const directorioSalida, const int MAX_THREADS);
 
 #endif

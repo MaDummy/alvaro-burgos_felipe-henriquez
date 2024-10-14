@@ -6,9 +6,10 @@
 #include <semaphore.h>
 #include <pthread.h>
 #include "../include/utils.h"
+#include "../include/menu.h"
 
 #define MAX_ARCHIVOS 1024
-#define MAX_STOPWORDS 200
+#define MAX_STOPWORDS 400
 #define MAX_LENGTH_STOPWORDS 10
 
 sem_t semaphore; // Semaforo para controlar la cantidad de threads activos
@@ -41,7 +42,7 @@ void escribe_hashmap(const char *const ruta_hash, const char *const ruta_inputs,
 
     if (directorio == NULL) {
         perror("No se pudo abrir el directorio");
-        return;
+        regresa_menu();
     }
 
     // Verifica que existen los archivos, filtrando por extensión
@@ -86,7 +87,7 @@ char **crea_arr_stopwords(const char *const path_stopwords){
     
     if(!stopwords_file){
         printf("No se encontró el archivo con las stopwords\n");
-        exit(EXIT_FAILURE);
+        regresa_menu();
     }
 
     while(fgets(line, sizeof(line), stopwords_file) != NULL){
@@ -101,7 +102,7 @@ char **crea_arr_stopwords(const char *const path_stopwords){
 void *filtra_stopword(void *args){
     ThreadArgs *arg = (ThreadArgs *)args;
     char *texto = arg->ruta_archivo;
-    printf("%s\n", texto);
+    printf("Filtrando: %s\n", texto);
     char **stopwords = arg->stopwords;
     char *path_copys = arg->ruta_copia_archivo;
 
@@ -156,7 +157,7 @@ void filtra_stopwords_threads(const char *const ruta_inputs, char **stopwords, c
     DIR *directorio = opendir(ruta_inputs);
     if (!directorio){
         fprintf(stderr, "El directorio de inputs no se encontró\n");
-        exit(EXIT_FAILURE);
+        regresa_menu();
     }
     struct dirent *entrada;
 

@@ -4,6 +4,7 @@
 #include <dirent.h>
 #include "../include/utils.h"
 #include "../include/file_utils.h"
+#include <unistd.h>
 
 unsigned long hashstring(unsigned char *str){
     unsigned long hash = 5381;
@@ -19,7 +20,7 @@ unsigned long hashstring(unsigned char *str){
 void leerMapaArchivos(char *mapa_archivos_path, char nombres_archivos[MAX_ARCHIVOS][MAX_NOM_ARCHIVO], int ids[MAX_ARCHIVOS], int *cantidad_archivos) {
     FILE *file = fopen(mapa_archivos_path, "r");
     if (file == NULL) {
-        fprintf(stderr, "Error: No sep uede abrir %s\n", mapa_archivos_path);
+        fprintf(stderr, "Error: No se puede abrir %s\n", mapa_archivos_path);
         exit(EXIT_FAILURE);
     }
 
@@ -28,24 +29,29 @@ void leerMapaArchivos(char *mapa_archivos_path, char nombres_archivos[MAX_ARCHIV
     char line[BUFFER_LINEA];
 
     while (fgets(line, sizeof(line), file)) {
-        line[strcspn(line, "\n")] = '\0';
+        line[strcspn(line, "\n")] = '\0';  // Quitar el salto de línea
 
-        char *token = strtok(line, ", ");
+        char *token = strtok(line, ",");  // Usamos solo la coma como delimitador
         if (token != NULL) {
+            // Eliminar espacios al inicio y fin del nombre
+            while (*token == ' ') token++;
             strncpy(nombres_archivos[*cantidad_archivos], token, MAX_NOM_ARCHIVO - 1);
-            nombres_archivos[*cantidad_archivos][MAX_NOM_ARCHIVO - 1] = '\0'; 
+            nombres_archivos[*cantidad_archivos][MAX_NOM_ARCHIVO - 1] = '\0';
         }
 
-        token = strtok(NULL, ", ");
+        token = strtok(NULL, ",");
         if (token != NULL) {
-            ids[*cantidad_archivos] = atoi(token); 
+            while (*token == ' ') token++;  // Eliminar espacios antes del ID
+            ids[*cantidad_archivos] = atoi(token);  // Convertir ID a entero
+        } else {
+            ids[*cantidad_archivos] = -1;  // En caso de que no haya un ID válido
         }
 
         (*cantidad_archivos)++;
     }
 
     fclose(file);
-}
+} 
 
 
 void insertarPalabra(TablaHash *tabla, char *palabra, int cant_ocurrencias, int ID_Documento) {

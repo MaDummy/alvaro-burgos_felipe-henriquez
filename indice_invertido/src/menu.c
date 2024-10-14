@@ -12,9 +12,9 @@ void regresa_menu(){
     printf("0: SALIR\n\n");
     printf("Escoja una opción: ");
 
-
     do{ 
         scanf("%d", &opcion);
+        while (getchar() != '\n')
         switch(opcion){
             case 1:
                 break;

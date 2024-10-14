@@ -2,6 +2,7 @@
 #include "../include/file_utils.h"
 #include "../include/menu.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 
 int main(int argc, char **argv){
@@ -18,7 +19,6 @@ int main(int argc, char **argv){
     char *path_output = getenv("PATH_OUTPUT");
     char *mapa_archivos = getenv("MAPA_ARCHIVOS");
     char *extension = getenv("EXTENSION");
-
     TablaHash tabla;
     tabla.palabrasDiferentesTabla = 0;
     for (int i = 0; i < TAMANO_TABLA_HASH; i++) {
@@ -28,7 +28,6 @@ int main(int argc, char **argv){
     char nombres_archivos[MAX_ARCHIVOS][MAX_NOM_ARCHIVO];
     int ids[MAX_ARCHIVOS];
     int cantidad_archivos;
-
     leerMapaArchivos(mapa_archivos, nombres_archivos, ids, &cantidad_archivos);
 
     procesarArchivosOutput(&tabla, path_output, extension, nombres_archivos, ids, cantidad_archivos);

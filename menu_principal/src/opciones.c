@@ -164,7 +164,8 @@ int conteo_palabras_paralelo(){
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
         printf("ERROR, variable de entorno ARCH_CONTEO_THREADS no esta definida\n");
-        regresa_menu();
+        printf("Volviendo al menú principal..\n");
+        sleep(3);
         return -1;
     }
 
@@ -173,7 +174,8 @@ int conteo_palabras_paralelo(){
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
         printf("ERROR, variable de entorno PATH_INPUT no esta definida\n");
-        regresa_menu();
+        printf("Volviendo al menú principal..\n");
+        sleep(3);
         return -1;
     }
 
@@ -182,7 +184,8 @@ int conteo_palabras_paralelo(){
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
         printf("ERROR, variable de entorno PATH_OUTPUT no esta definida\n");
-        regresa_menu();
+        printf("Volviendo al menú principal..\n");
+        sleep(3);
         return -1;
     }
     
@@ -191,7 +194,8 @@ int conteo_palabras_paralelo(){
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
         printf("ERROR, variable de entorno EXTENSION no esta definida\n");
-        regresa_menu();
+        printf("Volviendo al menú principal..\n");
+        sleep(3);
         return -1;
     }
 
@@ -200,7 +204,8 @@ int conteo_palabras_paralelo(){
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
         printf("ERROR, variable de entorno CANTIDAD_THREADS no esta definida\n");
-        regresa_menu();
+        printf("Volviendo al menú principal..\n");
+        sleep(3);
         return -1;
     }
 
@@ -209,7 +214,8 @@ int conteo_palabras_paralelo(){
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
         printf("ERROR, variable de entorno MAPA_ARCHIVOS no esta definida\n");
-        regresa_menu();
+        printf("Volviendo al menú principal..\n");
+        sleep(3);
         return -1;
     }
 
@@ -218,8 +224,9 @@ int conteo_palabras_paralelo(){
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
         printf("ERROR, variable de entorno STOP_WORD no esta definida\n");
-        regresa_menu();
-        return -1; 
+        printf("Volviendo al menú principal..\n");
+        sleep(3);
+        return -1;
     }
 
     snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s %s",

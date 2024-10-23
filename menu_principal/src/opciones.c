@@ -290,6 +290,27 @@ void crear_indice_invertido(int ejecucion_conteo_paralelo){
     system(comando);
 }
 
+void simular_planificador(){
+    char* path_planificador = getenv("PATH_PLANIFICADOR");
+    char* path_distribuidor = getenv("PATH_DISTRIBUIDOR");
+    char* path_core = getenv("PATH_CORE");
+    char* path_procesos = getenv("PROCESOS");
+    char* cant_cores = getenv("CANTIDAD_CORES");
+    char* path_resultados = getcenv("RESULTADOS");
+
+    char comando[512] = "";
+  
+    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s", path_planificador,
+                                                            path_procesos,
+                                                            cant_cores,
+                                                            path_resultados,
+                                                            path_distribuidor,
+                                                            path_core);
+
+    system(comando);
+
+}
+
 void anade_usuario(){
     exporta_env();
     char *filename = getenv("ARCH_USUARIOS");

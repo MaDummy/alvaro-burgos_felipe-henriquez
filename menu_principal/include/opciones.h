@@ -48,6 +48,9 @@ int conteo_palabras_paralelo();
 /// @param ejecucion_conteo_paralelo Entero que dice si se ejecuto el conteo paralelo
 void crear_indice_invertido(int ejecucion_conteo_paralelo);
 
+/// @brief Opcion 9: Simula un planificador
+void simular_planificador();
+
 
 /// @brief Opcion 9 (admin): Añade un usuario a la base de datos
 void anade_usuario();

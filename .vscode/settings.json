@@ -8,6 +8,7 @@
         "string.h": "c",
         "file_utils.h": "c",
         "menu.h": "c",
-        "opciones.h": "c"
+        "opciones.h": "c",
+        "unistd.h": "c"
     }
 }

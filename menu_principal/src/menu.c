@@ -28,6 +28,7 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
         printf("6: Menu conteo de palabras\n");
         printf("7: Conteo de palabras con %s threads\n", getenv("CANTIDAD_THREADS"));
         printf("8: Crear indice invertido\n");
+        printf("9: Simulacion planificador\n");
         if(es_admin){
             printf("9: Agregar usuario\n");
             printf("10: Listar usuarios\n");

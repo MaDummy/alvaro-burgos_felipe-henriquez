@@ -6,6 +6,7 @@
 #include <sys/msg.h>
 #include "../include/file_utils.h"
 #include "../include/utils.h"
+#include "../include/menu.h"
 
 #define MAX_TEXT 512
 
@@ -61,6 +62,8 @@ int main(int argc, char **argv){
     int id_core;
     char mensaje_para_distribuidor[MAX_TEXT];
 
+    clear();
+
     //Usa todos los core por primera vez antes de el flujo dinamico entre todos los procesos
     for(int i = 0; i < cant_cores; i++){
         cores_disponibles[i] = 0;
@@ -84,6 +87,7 @@ int main(int argc, char **argv){
 
     free(cores_disponibles);
     enviar_mensaje_distribuidor(msgid_distribuidor,"termina");
+    mensaje(resultados_path);
 
 }
 

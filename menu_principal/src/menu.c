@@ -30,9 +30,9 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
         printf("8: Crear indice invertido\n");
         printf("9: Simulacion planificador\n");
         if(es_admin){
-            printf("9: Agregar usuario\n");
-            printf("10: Listar usuarios\n");
-            printf("11: Eliminar usuario\n");
+            printf("10: Agregar usuario\n");
+            printf("11: Listar usuarios\n");
+            printf("12: Eliminar usuario\n");
         }
         printf("0: SALIR\n\n");
         if(opcion_valida)
@@ -77,16 +77,18 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
                 exit(0);
                 break;
             case 9:
+                simular_planificador();
+            case 10:
                 if(es_admin){
                     anade_usuario();
                     break;
                 }
-            case 10:
+            case 11:
                 if(es_admin){
                     listar_usuarios();
                     break;
                     }
-            case 11:
+            case 12:
                 if(es_admin){
                     elimina_usuario();
                     break;

@@ -6,7 +6,7 @@
 #include "../include/menu.h"
 
 
-// ejecutar como ./main <ruta_tests> <ruta_outputs> <extension> <cantidad> <mapa_archivos> <stop_words> <ruta_copias>
+// ejecutar como ./main <ruta_tests> <ruta_outputs> <extension> <cantidad> <mapa_archivos> <stop_words> <ruta_copias> <contexto>
 int main(int argc, char *argv[]){
     if(argc != 8){
         printf("Error al ejecutar conteo paralelo.\n");
@@ -15,9 +15,8 @@ int main(int argc, char *argv[]){
 
     const char *const ruta_tests = argv[1], *const ruta_outputs = argv[2], *const extension = argv[3], *const arch_hash = argv[5], *const arch_stopwords = argv[6], *const copy_path = argv[7];
     const int cantidad_threads = atoi(argv[4]);
-
     system("clear");
-    printf("════ ∘◦Conteo de Palabras en paralelo◦∘ ════\n\n");
+    printf("════ ∘◦Conteo de Palabras en paralelo, %d threads.◦∘ ════\n\n", cantidad_threads);
     printf("PID: %d.\n\n", getpid());
     printf("Escribiendo mapeo_archivos..\n");
     escribe_hashmap(arch_hash, ruta_tests, extension);

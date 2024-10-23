@@ -1,1 +1,1 @@
-./main ../tests/inputs ../tests/outputs .txt 4 ../data/conteo_palabras/mapa_archivos.txt ../data/conteo_palabras/stop_word.txt ../tests/inputs_filter 2 ../data/ejecutador/salida.txt ../data/ejecutador/grafico.png
+./main ../tests/inputs ../tests/outputs .txt 1,2,4,8 ../data/conteo_palabras/mapa_archivos.txt ../data/conteo_palabras/stop_word.txt ../tests/inputs_filter 2 ../data/ejecutador/salida.txt ../data/ejecutador/grafico.png ../conteo_paralelo/main

@@ -229,7 +229,7 @@ int conteo_palabras_paralelo(){
         return -1;
     }
 
-    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s %s",
+    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s %s 0",
              process_path,
              input_path,
              output_path,

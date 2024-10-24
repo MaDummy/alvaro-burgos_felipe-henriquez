@@ -30,7 +30,7 @@ void leeProcesos(char *path_procesos, char array_procesos[MAX_PROCESOS][MAX_LARG
 void escribe_respuesta_archivo(FILE *archivo, char *respuesta){
     int id_core;
     int id_proceso;
-    char *operacion;
+    char operacion[20];
     float numero1;
     float numero2;
     float val_respuesta;
@@ -50,7 +50,9 @@ void escribe_respuesta_archivo(FILE *archivo, char *respuesta){
                                                             operacion,
                                                             numero1,
                                                             numero2,
-                                                            val_respuesta);
+                                                            val_respuesta);                                                    
 
-    fprintf(archivo, "comanod\n");
+    if (fprintf(archivo, "%s\n", salida) < 0) {
+        printf("no pude escribir en el archivo\n");
+    }
 }

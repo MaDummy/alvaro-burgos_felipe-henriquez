@@ -253,7 +253,7 @@ void crear_indice_invertido(int ejecucion_conteo_paralelo){
         return;
     }
 
-    if (ejecucion_conteo_paralelo == 1){
+    if (ejecucion_conteo_paralelo == 0){
         system("clear");
         printf("════ ∘◦Menu◦∘ ════\n\n");
         printf("PID: %d.\n\n", getpid());
@@ -287,6 +287,11 @@ void crear_indice_invertido(int ejecucion_conteo_paralelo){
 
     snprintf(comando, sizeof(comando), "%s %s", path_index_process, path_index);
 
+    system("clear");
+    printf("%s\n",comando);
+    sleep(5);
+    return;
+
     system(comando);
 }
 
@@ -307,6 +312,9 @@ void simular_planificador(){
                                                             path_distribuidor,
                                                             path_core);
 
+    system("clear");
+    printf("%s\n",comando);
+    sleep(5);
     system(comando);
 
 }

@@ -30,10 +30,10 @@ void regresa_menu(){
 
 void mensaje(char *ruta_resultados){
     system("clear");
-    printf("════ ∘◦Creacion indice invertido◦∘ ════\n\n");
+    printf("════ ∘◦Simulador de planificador◦∘ ════\n\n");
     printf("PID: %d.\n\n", getpid());
-    printf("Se Creo el indice invertido\n");
-    printf("La ruta es %s", ruta_resultados);
+    printf("Se terminaron todos los procesos\n");
+    printf("La ruta es de resultados es: %s ", ruta_resultados);
     regresa_menu();
 }
 

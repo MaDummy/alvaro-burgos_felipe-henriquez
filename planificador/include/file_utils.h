@@ -6,6 +6,6 @@
 #define BUFFER_LINEA 2048
 #define MAX_LARGO_PROCESO 512
 
-void leeProcesos(char *path_procesos, char array_procesos[MAX_PROCESOS][MAX_LARGO_PROCESO], int *cont);
+void leeProcesos(char *path_procesos, char **array_procesos, int *cont);
 
 #endif

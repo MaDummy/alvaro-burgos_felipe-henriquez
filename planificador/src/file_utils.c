@@ -5,19 +5,19 @@
 #include <unistd.h>
 #include "../include/file_utils.h"
 
-void leeProcesos(char *path_procesos, char array_procesos[MAX_PROCESOS][MAX_LARGO_PROCESO], int *cont){
+void leeProcesos(char *path_procesos, char **array_procesos, int *cont) {
     FILE *archivo = fopen(path_procesos, "r");
-    if(archivo == NULL){
-        fprintf(stderr, "Error al abrir archivo de procesos");
+    if (archivo == NULL) {
+        fprintf(stderr, "Error al abrir archivo de procesos\n");
         return;
     }
 
     char buffer[BUFFER_LINEA];
 
-    while (fgets(buffer, sizeof(buffer), archivo)){
-
+    while (fgets(buffer, sizeof(buffer), archivo)) {
         size_t len = strcspn(buffer, "\n");
 
+        // Usa la sintaxis adecuada para acceder al puntero doble
         strncpy(array_procesos[*cont], buffer, len);
         array_procesos[*cont][len] = '\0';
 

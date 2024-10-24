@@ -72,12 +72,13 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
             case 8:
                 crear_indice_invertido(ejecucion_conteo_paralelo);
                 break;
+            case 9:
+                simular_planificador();
+                break;
             case 0:
                 printf("Saliendo del programa...\n");
                 exit(0);
                 break;
-            case 9:
-                simular_planificador();
             case 10:
                 if(es_admin){
                     anade_usuario();

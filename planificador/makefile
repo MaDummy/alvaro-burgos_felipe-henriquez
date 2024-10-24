@@ -1,9 +1,10 @@
 CC = gcc
 CFLAGS = -I./include
+LDFLAGS = -L/usr/local/lib 
 SRCDIR = src
 OBJDIR = obj
 TARGET = main
-SRCFILES = main.c menu.c utils.c file_utils.c
+SRCFILES = main.c menu.c utils.c file_utils.c comms.c
 OBJFILES = $(SRCFILES:.c=.o)
 OBJS = $(addprefix $(OBJDIR)/, $(OBJFILES))
 

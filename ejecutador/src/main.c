@@ -8,16 +8,17 @@
 #include <string.h>
 #include <sys/time.h>
 // Ejecutar como ./main <ruta_tests> <ruta_outputs> <extension> <array_threads> <mapa_archivos> <stop_words> <ruta_copias> 
-//                      <repeticiones> <arch_datos> <arch_grafico> <llamada_conteo>
+//                      <repeticiones> <arch_datos> <arch_grafico> <llamada_conteo> <llamada_analizador>
 int main(int argc, char *argv[]){
     const char *const ruta_tests = argv[1], *const ruta_outputs = argv[2], *const extension = argv[3],
     *const arch_hash = argv[5], *const arch_stopwords = argv[6], *const copy_path = argv[7],
-    *const arch_datos = argv[9], *const arch_grafico = argv[10], *const llamada_conteo = argv[11];
+    *const arch_datos = argv[9], *const arch_grafico = argv[10], *const llamada_conteo = argv[11], *const llamada_analizador = argv[12];
 
     const int repeticiones = atoi(argv[8]);
     const char *array_threads = argv[4];
     int cant_tests = 0;
-    char comando[2048] = "";
+    char comando[512] = "";
+    char comando_analizador[512] = "";
 
     system("clear");
     printf("════ ∘◦Conteo de Palabras en paralelo, distintos threads◦∘ ════\n");
@@ -27,7 +28,7 @@ int main(int argc, char *argv[]){
         printf("Error. La cantidad de repeticiones deben ser menor o igual a 2.\n");
         regresa_menu();
     }
-
+    // Se catchean la cantidad de threads
     const char *threads_aux = array_threads;
 
     while(*threads_aux){
@@ -76,6 +77,9 @@ int main(int argc, char *argv[]){
         }
         if(i != cant_tests-1) fprintf(arch_tiempos, "\n");
     }
+
+    fprintf(comando_analizador, "%s %s %s", llamada_analizador, arch_datos, arch_grafico);
+    system(comando_analizador);
 
     free(threads);
     regresa_menu();

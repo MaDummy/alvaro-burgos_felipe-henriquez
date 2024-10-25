@@ -1,6 +1,6 @@
-.PHONY: all clean menu_principal menu_secundario indice_invertido planificador distribuidor core
+.PHONY: all clean menu_principal menu_secundario indice_invertido planificador distribuidor core ejecutador conteo_paralelo
 
-all: menu_principal menu_secundario indice_invertido planificador distribuidor core
+all: menu_principal menu_secundario indice_invertido planificador distribuidor core ejecutador conteo_paralelo
 
 menu_principal:
 	$(MAKE) -C menu_principal
@@ -24,6 +24,9 @@ distribuidor:
 core:
 	$(MAKE) -C core
 
+ejecutador:
+	$(MAKE) -C ejecutador
+
 clean:
 	$(MAKE) -C menu_principal clean
 	$(MAKE) -C menu_secundario clean
@@ -31,4 +34,6 @@ clean:
 	$(MAKE) -C planificador clean
 	$(MAKE) -C distribuidor clean
 	$(MAKE) -C core clean
+	$(MAKE) -C ejecutador clean
+	$(MAKE) -C conteo_paralelo clean
 	rm -f main

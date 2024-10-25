@@ -29,10 +29,11 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
         printf("7: Conteo de palabras con %s threads\n", getenv("CANTIDAD_THREADS"));
         printf("8: Crear indice invertido\n");
         printf("9: Simulacion planificador\n");
+        printf("10: Ejecutar conteo paralelo con distintos threads\n");
         if(es_admin){
-            printf("10: Agregar usuario\n");
-            printf("11: Listar usuarios\n");
-            printf("12: Eliminar usuario\n");
+            printf("11: Agregar usuario\n");
+            printf("12: Listar usuarios\n");
+            printf("13: Eliminar usuario\n");
         }
         printf("0: SALIR\n\n");
         if(opcion_valida)
@@ -75,21 +76,23 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
             case 9:
                 simular_planificador();
                 break;
+            case 10:
+                llama_ejecutador();
             case 0:
                 printf("Saliendo del programa...\n");
                 exit(0);
                 break;
-            case 10:
+            case 11:
                 if(es_admin){
                     anade_usuario();
                     break;
                 }
-            case 11:
+            case 12:
                 if(es_admin){
                     listar_usuarios();
                     break;
                     }
-            case 12:
+            case 13:
                 if(es_admin){
                     elimina_usuario();
                     break;

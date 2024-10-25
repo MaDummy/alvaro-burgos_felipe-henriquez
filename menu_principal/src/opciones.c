@@ -319,6 +319,38 @@ void simular_planificador(){
 
 }
 
+void llama_ejecutador(){
+    char *main = getenv("PROG_EJECUTADOR");
+    char *ruta_tests = getenv("PATH_INPUT");
+    char *ruta_outputs = getenv("PATH_OUTPUT");
+    char *extension = getenv("EXTENSION");
+    char *array_threads = getenv("ARRAY_THREADS");
+    char *mapa_archivos = getenv("MAPA_ARCHIVOS");
+    char *stop_words = getenv("STOP_WORD");
+    char *ruta_copias = getenv("PATH_COPY");
+    char *repeticiones = getenv("REPETICIONES");
+    char *arch_datos = getenv("DATOS");
+    char *arch_grafico = getenv("GRAFICO");
+    char *llamada_conteo = getenv("ARCH_CONTEO_THREADS");
+    char *llamada_analizador = getenv("ANALIZADOR");
+    char comando[512] = "";
+
+    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s %s %s %s %s %s",
+                                                            main,
+                                                            ruta_tests,
+                                                            ruta_outputs,
+                                                            extension,
+                                                            array_threads,
+                                                            mapa_archivos,
+                                                            stop_words,
+                                                            ruta_copias,
+                                                            repeticiones,
+                                                            arch_datos,
+                                                            arch_grafico,
+                                                            llamada_conteo);
+    system(comando);
+}
+
 void anade_usuario(){
     exporta_env();
     char *filename = getenv("ARCH_USUARIOS");

@@ -51,6 +51,9 @@ void crear_indice_invertido(int ejecucion_conteo_paralelo);
 /// @brief Opcion 9: Simula un planificador
 void simular_planificador();
 
+/// @brief Llama al ejecutador.
+void llama_ejecutador();
+
 
 /// @brief Opcion 9 (admin): Añade un usuario a la base de datos
 void anade_usuario();

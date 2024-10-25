@@ -8,11 +8,12 @@
 #include <string.h>
 #include <sys/time.h>
 // Ejecutar como ./main <ruta_tests> <ruta_outputs> <extension> <array_threads> <mapa_archivos> <stop_words> <ruta_copias> 
-//                      <repeticiones> <arch_datos> <arch_grafico> <llamada_conteo> <llamada_analizador>
+//                      <repeticiones> <arch_datos> <arch_grafico> <llamada_conteo> <llamada_interprete> <llamada_analizador>
 int main(int argc, char *argv[]){
     const char *const ruta_tests = argv[1], *const ruta_outputs = argv[2], *const extension = argv[3],
     *const arch_hash = argv[5], *const arch_stopwords = argv[6], *const copy_path = argv[7],
-    *const arch_datos = argv[9], *const arch_grafico = argv[10], *const llamada_conteo = argv[11], *const llamada_analizador = argv[12];
+    *const arch_datos = argv[9], *const arch_grafico = argv[10], *const llamada_conteo = argv[11], *const llamada_analizador = argv[12],
+    *const llamada_analizador2 = argv[13];
 
     const int repeticiones = atoi(argv[8]);
     const char *array_threads = argv[4];
@@ -49,9 +50,6 @@ int main(int argc, char *argv[]){
     }
 
     FILE *arch_tiempos = fopen(arch_datos, "w");
-    for(int i = 0; i < cant_tests; i++){
-        printf("%d, ", threads[i]);
-    }
 
     struct timeval inicio, fin;
 
@@ -77,8 +75,8 @@ int main(int argc, char *argv[]){
         }
         if(i != cant_tests-1) fprintf(arch_tiempos, "\n");
     }
-
-    fprintf(comando_analizador, "%s %s %s", llamada_analizador, arch_datos, arch_grafico);
+    snprintf(comando_analizador, sizeof(comando_analizador), "%s %s %s %s", llamada_analizador, llamada_analizador2, arch_datos, arch_grafico);
+    printf("%s\n", comando_analizador);
     system(comando_analizador);
 
     free(threads);

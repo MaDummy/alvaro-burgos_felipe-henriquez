@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import sys
 
-#Ejecutar como "python <ruta_analizador> <ruta_grafico>"
+#Ejecutar como "python <ruta_tiempos> <ruta_grafico>"
 def leer_archivo(ruta_archivo):
     x_vals = []
     tiempos_por_linea = []
@@ -18,7 +18,7 @@ def leer_archivo(ruta_archivo):
     return x_vals, tiempos_por_linea
 
 
-def graficar_lineas(x_vals, tiempos_por_linea):
+def graficar_lineas(x_vals, tiempos_por_linea, ruta_png):
     # Asumimos que todas las líneas tienen el mismo número de tiempos
     num_lineas = len(tiempos_por_linea[0]) if tiempos_por_linea else 0
 
@@ -33,12 +33,13 @@ def graficar_lineas(x_vals, tiempos_por_linea):
     plt.grid(True)  # Añadir cuadrícula
 
     # Guardar el gráfico en un archivo PNG
-    plt.savefig("grafico.png")  # Guardar el gráfico como 'grafico.png'
+    plt.savefig(ruta_png)  # Guardar el gráfico como 'grafico.png'
     plt.show()  # Mostrar el gráfico
 
 
 if __name__ == "__main__":
+    print("Hola!!")
     ruta_tiempos = sys.argv[1]  
     ruta_png = sys.argv[2]
     x_vals, tiempos_por_linea = leer_archivo(ruta_tiempos)
-    graficar_lineas(x_vals, tiempos_por_linea)
+    graficar_lineas(x_vals, tiempos_por_linea, ruta_png)

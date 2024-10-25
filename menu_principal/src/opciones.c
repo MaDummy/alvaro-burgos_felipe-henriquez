@@ -332,10 +332,10 @@ void llama_ejecutador(){
     char *arch_datos = getenv("DATOS");
     char *arch_grafico = getenv("GRAFICO");
     char *llamada_conteo = getenv("ARCH_CONTEO_THREADS");
-    char *llamada_analizador = getenv("ANALIZADOR");
+    char *llamada_analizador = getenv("PATH_ANALIZADOR");
     char comando[512] = "";
 
-    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s %s %s %s %s %s",
+    snprintf(comando, sizeof(comando), "%s %s %s %s %s %s %s %s %s %s %s %s %s",
                                                             main,
                                                             ruta_tests,
                                                             ruta_outputs,
@@ -347,7 +347,9 @@ void llama_ejecutador(){
                                                             repeticiones,
                                                             arch_datos,
                                                             arch_grafico,
-                                                            llamada_conteo);
+                                                            llamada_conteo,
+                                                            llamada_analizador);
+    printf("%s\n", comando);
     system(comando);
 }
 

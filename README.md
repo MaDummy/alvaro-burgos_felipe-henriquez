@@ -19,7 +19,7 @@ Para usuarios con el rol "generico":
     0. Salir: termina el proceso externo y vuelve al menu principal.
 7. Conteo paralelo: Se realiza el conteo de palabras de forma paralela. La cantidad de threads están especificados en la variable de entorno "CANTIDAD_THREADS"
 8. Crear indice invertido: Solo si ya se ejecuto conteo paralelo. Lee el output de este para crear un archivo .INDEX con formato palabra;(IDX,ocurrencias);(IDX2,ocurrencias2)
-
+9. Simular planificador: Simula un planificador que lee procesos de un archivo definido en la variable de entorno PROCESOS (con formato id_core;operacion;operador1,operador2) y decide a que "core" (proceso externo que puede realizar operaciones) esta libre, para enviarle un mensaje con el proceso y el core que le ejecutara a un "distribuidor" (proceso externo) que se lo pasa a un core y recibe la respuesta para escribirla en el archivo definido en la variable de entorno RESULTADOS. La cantidad de cores que se pueden usar esta definida en la variable de entorno CANTIDAD_CORES
 
 Para usuarios "admin": Además de las opciones anteriores, los administradores tienen tres opciones adicionales:
 

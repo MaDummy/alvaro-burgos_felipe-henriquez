@@ -78,6 +78,7 @@ void menu(char *texto, int *vector, int tamano, double n, char *usuario, char *r
                 break;
             case 10:
                 llama_ejecutador();
+                break;
             case 0:
                 printf("Saliendo del programa...\n");
                 exit(0);

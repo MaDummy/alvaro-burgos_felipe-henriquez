@@ -343,6 +343,7 @@ void llama_ejecutador(){
                                                             llamada_analizador);
     printf("%s\n", comando);
     system(comando);
+    regresa_menu();
 }
 
 void anade_usuario(){

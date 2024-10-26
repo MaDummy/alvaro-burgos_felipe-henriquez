@@ -31,9 +31,13 @@ def graficar_lineas(x_vals, tiempos_por_linea, ruta_png):
 
     plt.savefig(ruta_png)
 
-
-if __name__ == "__main__":
+def main():
+    print("\nGraficando tiempos..")
     ruta_tiempos = sys.argv[1]  
     ruta_png = sys.argv[2]
     x_vals, tiempos_por_linea = leer_archivo(ruta_tiempos)
     graficar_lineas(x_vals, tiempos_por_linea, ruta_png)
+    print(f"\nGráfico realizado con éxito. Guardado en {ruta_png}")
+
+if __name__ == "__main__":
+    main()

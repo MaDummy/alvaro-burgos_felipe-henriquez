@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
     char comando_analizador[512] = "";
 
     system("clear");
-    printf("════ ∘◦Conteo de Palabras en paralelo, distintos threads◦∘ ════\n");
+    printf("════ ∘◦Conteo de Palabras en paralelo, distintos threads◦∘ ════\n\n");
     printf("PID: %d\n", getpid());
 
     if(repeticiones < 2){
@@ -77,9 +77,8 @@ int main(int argc, char *argv[]){
     }
     snprintf(comando_analizador, sizeof(comando_analizador), "%s %s %s %s", llamada_analizador, llamada_analizador2, arch_datos, arch_grafico);
     fclose(arch_tiempos);
-    printf("%s\n", comando_analizador);
     system(comando_analizador);
 
     free(threads);
-    regresa_menu();
+    return 0;
 }

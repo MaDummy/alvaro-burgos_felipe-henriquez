@@ -17,7 +17,7 @@ Para usuarios con el rol "generico":
     3. Ingresar ruta de la carpeta de entrada: Opcion para ingresar la ruta a una carpeta donde se dejaran .txt por cada archivo en la carpeta de entrada, que mostraran las palabras unicas y sus ocurrencias.
     4. Ejecutar conteo de palabras: Si se uso el resto de opciones para ingresar informacion correctamente esta opcion va a buscar en la carpeta de entrada archivos con la extension dada, va a contar las ocurrencias de cada palabra unica, va a crear, por cada archivo leido, un txt en la carpeta de salida con cada palabra y sus ocurrencias, y mostrara en pantalla las rutas a esos txt y la cantidad de palabras diferentes que se anotaron en cada uno.
     0. Salir: termina el proceso externo y vuelve al menu principal.
-7. Conteo paralelo: Esto lo llenas tu
+7. Conteo paralelo: Se realiza el conteo de palabras de forma paralela. La cantidad de threads están especificados en la variable de entorno "CANTIDAD_THREADS"
 8. Crear indice invertido: Solo si ya se ejecuto conteo paralelo. Lee el output de este para crear un archivo .INDEX con formato palabra;(IDX,ocurrencias);(IDX2,ocurrencias2)
 
 

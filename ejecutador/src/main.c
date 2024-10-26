@@ -76,6 +76,7 @@ int main(int argc, char *argv[]){
         if(i != cant_tests-1) fprintf(arch_tiempos, "\n");
     }
     snprintf(comando_analizador, sizeof(comando_analizador), "%s %s %s %s", llamada_analizador, llamada_analizador2, arch_datos, arch_grafico);
+    fclose(arch_tiempos);
     printf("%s\n", comando_analizador);
     system(comando_analizador);
 

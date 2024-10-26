@@ -8,37 +8,31 @@ def leer_archivo(ruta_archivo):
 
     with open(ruta_archivo, 'r') as file:
         for linea in file:
-            # Separar la línea por el ';' para obtener el índice y los tiempos
-            indice, tiempos = linea.strip().split(';')
-            # Convertir el índice en número y añadirlo a x_vals
-            x_vals.append(int(indice))
-            # Separar los tiempos, convertir a float, y agregar a la lista de tiempos
+            thread, tiempos = linea.strip().split(';')
+            x_vals.append(int(thread))
             tiempos_por_linea.append([float(t) for t in tiempos.split(',')])
 
     return x_vals, tiempos_por_linea
 
 
 def graficar_lineas(x_vals, tiempos_por_linea, ruta_png):
-    # Asumimos que todas las líneas tienen el mismo número de tiempos
-    num_lineas = len(tiempos_por_linea[0]) if tiempos_por_linea else 0
+    num_lineas = len(tiempos_por_linea[0])
 
     for i in range(num_lineas):
         tiempos_i = [tiempos[i] for tiempos in tiempos_por_linea]
-        plt.plot(x_vals, tiempos_i, label=f"Línea {i+1}", marker='o')  # Graficar cada línea
+        plt.plot(x_vals, tiempos_i, label=f"Repetición {i+1}", marker='o')
 
-    plt.xlabel("Índice")
-    plt.ylabel("Tiempos")
-    plt.title("Gráfico de Líneas Escalable")
-    plt.legend()  # Mostrar la leyenda de las líneas
-    plt.grid(True)  # Añadir cuadrícula
+    plt.ylim(0, 60)
+    plt.xlabel("Cant. Threads")
+    plt.ylabel("Tiempo de ejecución (en seg)")
+    plt.title("Gráfico de tiempo de ejecución por cantidad de threads")
+    plt.legend()
+    plt.grid(True)
 
-    # Guardar el gráfico en un archivo PNG
-    plt.savefig(ruta_png)  # Guardar el gráfico como 'grafico.png'
-    plt.show()  # Mostrar el gráfico
+    plt.savefig(ruta_png)
 
 
 if __name__ == "__main__":
-    print("Hola!!")
     ruta_tiempos = sys.argv[1]  
     ruta_png = sys.argv[2]
     x_vals, tiempos_por_linea = leer_archivo(ruta_tiempos)

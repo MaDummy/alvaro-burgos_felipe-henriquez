@@ -17,7 +17,6 @@ void leeProcesos(char *path_procesos, char **array_procesos, int *cont) {
     while (fgets(buffer, sizeof(buffer), archivo)) {
         size_t len = strcspn(buffer, "\n");
 
-        // Usa la sintaxis adecuada para acceder al puntero doble
         strncpy(array_procesos[*cont], buffer, len);
         array_procesos[*cont][len] = '\0';
 

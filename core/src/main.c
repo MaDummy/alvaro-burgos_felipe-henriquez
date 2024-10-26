@@ -5,7 +5,6 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
-#include "../include/file_utils.h"
 #include "../include/operaciones.h"
 #include "../include/utils.h"
 #include "../include/comms.h"

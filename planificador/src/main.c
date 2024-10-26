@@ -16,6 +16,8 @@ int main(int argc, char **argv){
         fprintf(stderr, "Error al llamar planificador, se requieren 5 parametro y se pasaron %d", argc - 1);
     }
 
+    mensaje_progreso();
+
     char *process_path = argv[1];
     int cant_cores = atoi(argv[2]);
     char *resultados_path = argv[3];
@@ -55,7 +57,6 @@ int main(int argc, char **argv){
     }
 
 
-    //Muere si tenemos mas core que procesos, lo arreglo despues
     for(int i = cant_cores; i < cont; i++){
         leer_mensaje_core(msgid_core, &id_core);
         cores_disponibles[id_core] = 0;

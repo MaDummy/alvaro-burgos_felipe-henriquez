@@ -5,6 +5,10 @@
 void regresa_menu();
 
 
+/// @brief Muestra un mensaje simple "Se estan ejecutando los procesos"
+void mensaje_progreso();
+
+
 /// @brief Muestra un mensaje diciendo que el proceso finalizo y muestra ruta de salida
 /// @param ruta_salida String con la ruta de salida
 void mensaje(char *ruta_resultados);

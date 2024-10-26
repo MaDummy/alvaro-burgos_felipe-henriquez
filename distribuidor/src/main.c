@@ -12,7 +12,6 @@
 
 //./main path_programa_core path_resultados
 int main(int argc, char **argv) {
-    printf("hola, existo, soy el distribuidor\n");
     if (argc != 3){
         fprintf(stderr, "Error al llamar distribuidor, se requieren 2 parametro y se pasaron %d", argc - 1);
         return 1;

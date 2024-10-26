@@ -28,6 +28,13 @@ void regresa_menu(){
     }while(opcion != 1 && opcion != 0);
 }
 
+void mensaje_progreso(){
+    system("clear");
+    printf("════ ∘◦Simulador de planificador◦∘ ════\n\n");
+    printf("PID: %d.\n\n", getpid());
+    printf("Se estan Ejecutando los procesos\n");
+}
+
 void mensaje(char *ruta_resultados){
     system("clear");
     printf("════ ∘◦Simulador de planificador◦∘ ════\n\n");
@@ -36,4 +43,6 @@ void mensaje(char *ruta_resultados){
     printf("La ruta es de resultados es: %s ", ruta_resultados);
     regresa_menu();
 }
+
+
 

@@ -9,10 +9,7 @@ void procesar_mensaje_planificador(char *mensaje, int *id_core, int *id_proceso,
 
     if (resultado != 5) {
         fprintf(stderr, "Error: formato de mensaje incorrecto, se esperaban 5 elementos, se leyeron %d\n", resultado);
-    } else {
-        printf("id_core: %d, id_proceso: %d, operacion: %s, numero1: %f, numero2: %f\n", 
-               *id_core, *id_proceso, operacion, *numero1, *numero2);
-    }
+    } 
 }
 
 void procesar_mensaje_core(char *mensaje, int *id_core, int *id_proceso, char *operacion, float *numero1, float *numero2, float *respuesta){
@@ -36,8 +33,6 @@ void ejecuta_core(char *path_core, int id_core, int id_proceso, char *operacion,
                                                             operacion,
                                                             numero1,
                                                             numero2);
-
-    printf("%s\n",comando);
 
     system(comando);
 }

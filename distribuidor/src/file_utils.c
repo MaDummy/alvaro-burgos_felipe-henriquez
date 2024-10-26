@@ -6,26 +6,6 @@
 #include "../include/file_utils.h"
 #include "../include/utils.h"
 
-void leeProcesos(char *path_procesos, char array_procesos[MAX_PROCESOS][MAX_LARGO_PROCESO], int *cont){
-    FILE *archivo = fopen(path_procesos, "r");
-    if(archivo == NULL){
-        fprintf(stderr, "Error al abrir archivo de procesos");
-        return;
-    }
-
-    char buffer[BUFFER_LINEA];
-
-    while (fgets(buffer, sizeof(buffer), archivo)){
-
-        char *ptr = strchr(buffer, ';');
-
-        strcpy(array_procesos[*cont], ptr + 1);
-
-        (*cont)++;
-    }
-
-    fclose(archivo);
-}
 
 void escribe_respuesta_archivo(FILE *archivo, char *respuesta){
     int id_core;

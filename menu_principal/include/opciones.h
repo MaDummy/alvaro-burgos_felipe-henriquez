@@ -54,6 +54,9 @@ void simular_planificador();
 /// @brief Llama al ejecutador.
 void llama_ejecutador();
 
+/// @brief LLama al buscador
+void buscador();
+
 
 /// @brief Opcion 9 (admin): Añade un usuario a la base de datos
 void anade_usuario();

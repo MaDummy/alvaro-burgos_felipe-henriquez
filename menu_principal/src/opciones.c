@@ -18,29 +18,6 @@ void imprime_vector(int *vector, int tamano){
 }
 
 
-int *crea_vector(char *vector, int *tamano){
-    bool busca_numero = true;
-    int j = 0;
-    *tamano = 1;
-
-    // Primero se determina el tamano del vector
-    for(int i = 0; vector[i] != '\0'; i++)
-        if (vector[i] == ';'){
-            (*tamano) ++;
-        }
-    
-    int *vector_nuevo = (int*)malloc(*tamano * sizeof(int));
-
-    char *num = strtok(vector, ";");
-    while(num != NULL){
-        vector_nuevo[j++] = atoi(num);
-        num = strtok(NULL, ";");
-    }
-    
-    return vector_nuevo;
-}
-
-
 void suma_promedio_vector(int *vector, int tamano){
     system("clear");
     printf("════ ∘◦Opcion 4◦∘ ════\n\n");
@@ -344,6 +321,17 @@ void llama_ejecutador(){
     printf("%s\n", comando);
     system(comando);
     regresa_menu();
+}
+
+void buscador(){
+    char *main = getenv("PATH_BUSCADOR");
+    char *mapa_archivos = getenv("MAPA_ARCHIVOS");
+    char *puerto_cache = getenv("PUERTO_CACHE");
+    char comando[512] = "";
+
+    snprintf(comando, sizeof(comando), "%s %s %s", main, mapa_archivos, puerto_cache);
+
+    system(comando);
 }
 
 void anade_usuario(){

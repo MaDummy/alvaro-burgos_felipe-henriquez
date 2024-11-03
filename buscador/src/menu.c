@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "opciones.h"
 #include <stdbool.h>
-#include <sys/types.h>
-#include <string.h>
-#include "../include/utils.h"
 #include <unistd.h>
+#include "../include/validaciones.h"
+#include "../include/file_utils.h"
+
 
 void regresa_menu(){
     bool opcion_valida = true;
@@ -14,13 +13,16 @@ void regresa_menu(){
     printf("1: Regresar al menú\n");
     printf("0: SALIR\n\n");
     printf("Escoja una opción: ");
+
+    while (getchar() != '\n');
+
     do{ 
         scanf("%d", &opcion);
         switch(opcion){
             case 1:
                 break;
             case 0:
-                printf("Saliendo del programa...\n");
+                printf("Saliendo del programa... :(\n");
                 exit(0);
                 break;
             default:
@@ -28,3 +30,4 @@ void regresa_menu(){
         }
     }while(opcion != 1 && opcion != 0);
 }
+

@@ -72,8 +72,9 @@ int main(int argc, char* argv[]){
     //Inicia motor de busqueda
     char *path_motor_busqueda = getenv("PATH_MOTOR_BUSQUEDA");
     char *topk = getenv("TOPK");
+    char *inverted_index = getenv("INVERTED_INDEX");
     memset(comando, 0, sizeof(comando));
-    snprintf(comando, 1024, "%s %s %s&", path_motor_busqueda, puerto_motor_busqueda, topk);
+    snprintf(comando, 1024, "%s %s %s %s&", path_motor_busqueda, puerto_motor_busqueda, topk, inverted_index);
     printf("%s\n",comando);
     sleep(3);
     system(comando);

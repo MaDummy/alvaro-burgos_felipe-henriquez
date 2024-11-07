@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include "../include/cache_funcs.h"
 
 #define BUFFER_SIZE 1024
 
@@ -16,7 +17,7 @@ int main(int argc, char **argv){
 
     int puerto_cache = atoi(argv[1]);
     int puerto_motor_busqueda = atoi(argv[2]);
-    int memory_size = atoi(argv[3]); // Aqui tienes el tamaño de la memoria
+    int memory_size = atoi(argv[3]);
     char buffer[BUFFER_SIZE] = {0};
     char buffer2[BUFFER_SIZE] = {0};
     int running = 1;
@@ -45,7 +46,9 @@ int main(int argc, char **argv){
 
     connect(motor_socket, (struct sockaddr *)&motor_address, sizeof(motor_address)); 
 
-
+    //Inicializacion del cache
+    Cache *cache = inicializarCache(memory_size);
+    char *resultado;
     while(running){
         new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
             if (new_socket < 0) {
@@ -66,20 +69,20 @@ int main(int argc, char **argv){
                 send(motor_socket, buffer, BUFFER_SIZE, 0); // Para enviar el mensaje de termino a motor de busqueda
                 break; // Para terminar salirse del while interno
             }
-
             else{
                 printf("soy la cache y estoy enviando: %s\n", buffer);
-                sleep(3);
-
-                snprintf(buffer2,BUFFER_SIZE, "soy la cache y recibi: %s\n", buffer); // existe por temas de depuracion
-
-                send(motor_socket, buffer, BUFFER_SIZE, 0); // Envia mensaje recibido de buscador a motor de busqueda
+                // Se escribe la salida en el buffer2
+                resultado = buscarEntrada(cache, buffer);
+                if(strcmp(resultado, "-1") != 0){
+                    snprintf(buffer2, BUFFER_SIZE, "%s", resultado); // existe por temas de depuracion
+                    send(new_socket, buffer2, BUFFER_SIZE, 0); // Envia mensaje a buscador
+                }else{
+                    send(motor_socket, buffer, BUFFER_SIZE, 0); // Envia mensaje recibido de buscador a motor de busqueda
+                    read(motor_socket, buffer2, BUFFER_SIZE); // Lee mensaje recibido de motor de busqueda
+                    agregarEntrada(cache, buffer, buffer2);
+                }
 
                 memset(buffer2, 0, BUFFER_SIZE); // Resetea el buffer2 para reutilizarlo
-
-                read(motor_socket, buffer2, BUFFER_SIZE); // Lee mensaje recibido de motor de busqueda
-
-                send(new_socket, buffer2, BUFFER_SIZE, 0); // Envia mensaje a buscador
             }
 
         }

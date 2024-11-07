@@ -64,8 +64,6 @@ int main(int argc, char* argv[]){
     char *memory_size = getenv("MEMORY_SIZE");
     char comando[1024] = {0};
     snprintf(comando, 1024, "%s %s %s %s&", path_cache, puerto_cache, puerto_motor_busqueda, memory_size);
-    printf("%s\n",comando);
-    sleep(3);
     system(comando);
 
 
@@ -75,8 +73,6 @@ int main(int argc, char* argv[]){
     char *inverted_index = getenv("INVERTED_INDEX");
     memset(comando, 0, sizeof(comando));
     snprintf(comando, 1024, "%s %s %s %s&", path_motor_busqueda, puerto_motor_busqueda, topk, inverted_index);
-    printf("%s\n",comando);
-    sleep(3);
     system(comando);
     
 
@@ -84,8 +80,6 @@ int main(int argc, char* argv[]){
     char *path_menu_princpial = getenv("PATH_MENU_PRINCIPAL");
     memset(comando, 0, sizeof(comando));
     snprintf(comando, 1024, "%s %s %s %d %f %s %s", path_menu_princpial, text, text_vector, tamano, n, user, rol);
-    printf("%s\n",comando);
-    sleep(3);
     system(comando);
 
     return 0;

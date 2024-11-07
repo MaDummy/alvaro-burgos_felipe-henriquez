@@ -80,17 +80,19 @@ int main(int argc, char **argv) {
 
                 fgets(buffer, BUFFER_SIZE, stdin);
 
-                if(strcmp("SALIR AHORA\n", buffer) == 0){
+                if (strcmp("SALIR AHORA\n", buffer) == 0) {
                     salir = true;
-                }
+                } else if (strlen(buffer) > 1) { 
 
-                send(sock, buffer, BUFFER_SIZE, 0);
+                    send(sock, buffer, BUFFER_SIZE, 0);
 
-                read(sock, buffer, BUFFER_SIZE);
+                    read(sock, buffer, BUFFER_SIZE);
 
+                 }
                 break;
             case 0:
                 salir = true;
+                close(sock);
                 break;
             default:
                 opcion_valida = false;

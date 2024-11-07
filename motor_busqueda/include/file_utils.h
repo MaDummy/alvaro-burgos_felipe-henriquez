@@ -65,6 +65,6 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
 void procesarPalabras(TablaHash *tabla, NodoInterseccion **puntajes, char palabras[BUFFER_SIZE]);
 
 
-char *formatearResultado(NodoInterseccion *puntajes, const char *palabras);
+char *formatearResultado(NodoInterseccion *puntajes, char *palabras);
 
 #endif

@@ -15,17 +15,22 @@ unsigned long hashstring(unsigned char *str){
 }
 
 void insertarPalabra(TablaHash *tabla, char *palabra) {
-    unsigned long indice = hashstring((unsigned char *)palabra);
+    // Extract only the word to hash
+    char *token = strtok(palabra, ";");
+    char word_to_hash[BUFFER_LINEA];
+    strcpy(word_to_hash, token);
+
+    // Now hash only the word part
+    unsigned long indice = hashstring((unsigned char *)word_to_hash);
+
     NodoPalabra *nuevoNodo = malloc(sizeof(NodoPalabra));
 
-    char *token;
     int id_documento, ocurrencias;
 
-    // Extraer la palabra inicial
-    token = strtok(palabra, ";");
-    strcpy(nuevoNodo->palabra,token);
+    // Store the word in the node
+    strcpy(nuevoNodo->palabra, token);
 
-    // Recorrer las tuplas y extraer valores
+    // Process the rest of the string (tuples of (id_documento, ocurrencias))
     while ((token = strtok(NULL, ";")) != NULL) {
         sscanf(token, "(%d,%d)", &id_documento, &ocurrencias);
 
@@ -36,6 +41,7 @@ void insertarPalabra(TablaHash *tabla, char *palabra) {
         nuevoNodo->ocurrencias = nuevo;
     }
 
+    // Insert the node into the hash table
     nuevoNodo->next = tabla->tabla[indice];
     tabla->tabla[indice] = nuevoNodo;
     tabla->palabrasDiferentesTabla++;
@@ -54,8 +60,15 @@ void rellenarTablaHash(FILE *archivo_index, TablaHash *tabla){
 }
 
 void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes, int *contador_interseccion) {
+    size_t len = strlen(palabra);
+        if (len > 0 && palabra[len - 1] == '\n') {
+            palabra[len - 1] = '\0';
+        }
     unsigned long indice = hashstring((unsigned char *)palabra);
     NodoPalabra *nodo = tabla->tabla[indice];
+
+    // After displaying all words, we can proceed with the original search logic
+    nodo = tabla->tabla[indice];
 
     // Locate the correct NodoPalabra for `palabra`
     while(nodo != NULL && (strcmp(nodo->palabra, palabra) != 0)) {
@@ -157,7 +170,7 @@ void procesarPalabras(TablaHash *tabla, NodoInterseccion **puntajes, char palabr
 }
 
 
-char *formatearResultado(NodoInterseccion *puntajes, const char *palabras) {
+char *formatearResultado(NodoInterseccion *puntajes, char *palabras) {
     // Initial buffer for the formatted string, adjust size as needed
     int buffer_size = 2048;
     char *resultado = malloc(buffer_size);
@@ -166,14 +179,19 @@ char *formatearResultado(NodoInterseccion *puntajes, const char *palabras) {
         return NULL;
     }
 
+    size_t len = strlen(palabras);
+    if (len > 0 && palabras[len - 1] == '\n') {
+        palabras[len - 1] = '\0';
+    }
+
     // Start the formatted string with the searched words
-    snprintf(resultado, buffer_size, "%s;", palabras);
+    snprintf(resultado, buffer_size, "%s", palabras);
 
     // Traverse the linked list of NodoInterseccion and format each entry
     NodoInterseccion *current = puntajes;
     while (current != NULL) {
         char temp[64]; // Temporary buffer for each document entry
-        snprintf(temp, sizeof(temp), "(doc%d;%d)", current->id_documento, current->suma_ocurrencias);
+        snprintf(temp, sizeof(temp), ";(%d;%d)", current->id_documento, current->suma_ocurrencias);
 
         // Append the formatted document entry to the result string
         if (strlen(resultado) + strlen(temp) + 1 >= buffer_size) {

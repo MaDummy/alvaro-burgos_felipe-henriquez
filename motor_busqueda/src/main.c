@@ -6,6 +6,7 @@
 #include "../include/file_utils.h"
 
 // ./main puerto_motor_busqueda topk inverted_index_path
+// ./main 8081 10 ../data/conteo_palabras/inverted_index.INDEX <- si se ejecuta desde su carpeta
 int main(int argc, char **argv){
     if (argc != 4){
         fprintf(stderr, "Error al llamar motor_busqueda, se requieren 3 parametros y se pasaron %d", argc - 1);
@@ -18,8 +19,8 @@ int main(int argc, char **argv){
     char *inverted_index_path = argv[3];
 
     int server_fd, new_socket;
-    struct sockaddr_in address;
-    int addrlen = sizeof(address);
+    struct sockaddr_in serverAddress;
+    int addrlen = sizeof(serverAddress);
     char buffer[BUFFER_SIZE] = {0};
     char buffer2[BUFFER_SIZE] = {0};
     char auxBuffer[BUFFER_SIZE] = {0};
@@ -27,16 +28,29 @@ int main(int argc, char **argv){
     int running = 1;
 
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_fd == -1) {
+        perror("Error al crear el socket del servidor\n");
+        exit(EXIT_FAILURE);
+    }
 
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(port);
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_addr.s_addr = INADDR_ANY;
+    serverAddress.sin_port = htons(port);
 
-    bind(server_fd, (struct sockaddr *)&address, sizeof(address));
-    listen(server_fd, 1);
+    if (bind(server_fd, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) == -1) {
+        perror("Error al enlazar el socket\n");
+        close(server_fd);
+        exit(EXIT_FAILURE);
+    }
 
-    new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
+    if (listen(server_fd, 1) == -1) {
+        perror("Error al escuchar\n");
+        close(server_fd);
+        exit(EXIT_FAILURE);
+    }
 
+    new_socket = accept(server_fd, (struct sockaddr *)&serverAddress, (socklen_t*)&addrlen);
+    printf("motor entro al while\n");
     while(running){
         TablaHash tabla;
         memset(&tabla, 0, sizeof(TablaHash));

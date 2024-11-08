@@ -56,7 +56,7 @@ int main(int argc, char* argv[]){
     }
 
     exporta_env();
-
+    /*
     //Inicia cache
     char *path_cache = getenv("PATH_CACHE");
     char *puerto_cache = getenv("PUERTO_CACHE");
@@ -74,13 +74,13 @@ int main(int argc, char* argv[]){
     memset(comando, 0, sizeof(comando));
     snprintf(comando, 1024, "%s %s %s %s&", path_motor_busqueda, puerto_motor_busqueda, topk, inverted_index);
     system(comando);
-    
+    */
 
     //Inicia menu principal
     char *path_menu_princpial = getenv("PATH_MENU_PRINCIPAL");
-    memset(comando, 0, sizeof(comando));
+    char comando[1024] = {0};
     snprintf(comando, 1024, "%s %s %s %d %f %s %s", path_menu_princpial, text, text_vector, tamano, n, user, rol);
     system(comando);
-
+    
     return 0;
 }

@@ -55,14 +55,14 @@ void rellenarTablaHash(FILE *archivo_index, TablaHash *tabla);
 /// @param palabra Palabra a buscar
 /// @param puntajes Lista enlazada de intersecciones
 /// @param contador_interseccion Se usa para saber cuantas veces deberian aparecer los documentos de la interseccion
-void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes, int *contador_interseccion);
+void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes, int *contador_interseccion, int topK);
 
 
 /// @brief Recibe las palabras y las busca en el hashtable, actualizando la lista enlazada puntajes
 /// @param tabla TablaHash inicializada
 /// @param puntajes Estructura donde se guarda interseccion de documentos con suma de ocurrencias
 /// @param palabras Palabras a buscar, un string de palabras separadas por " "
-void procesarPalabras(TablaHash *tabla, NodoInterseccion **puntajes, char palabras[BUFFER_SIZE]);
+void procesarPalabras(TablaHash *tabla, NodoInterseccion **puntajes, char palabras[BUFFER_SIZE], int topK);
 
 
 char *formatearResultado(NodoInterseccion *puntajes, char *palabras);

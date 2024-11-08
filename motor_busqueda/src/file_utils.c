@@ -59,16 +59,62 @@ void rellenarTablaHash(FILE *archivo_index, TablaHash *tabla){
     }
 }
 
-void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes, int *contador_interseccion) {
+// Helper function to sort by occurrences in descending order
+int compare_occurrences(const void *a, const void *b) {
+    NodoInterseccion *nodoA = *(NodoInterseccion **)a;
+    NodoInterseccion *nodoB = *(NodoInterseccion **)b;
+    return nodoB->suma_ocurrencias - nodoA->suma_ocurrencias;
+}
+
+// Trims puntajes to the top `topk` elements
+void trim_to_topk(NodoInterseccion **puntajes, int topk) {
+    int count = 0;
+    NodoInterseccion *current = *puntajes;
+    
+    // Count total elements
+    while (current) {
+        count++;
+        current = current->next;
+    }
+    
+    // If current size is less than or equal to topk, no trimming needed
+    if (count <= topk) return;
+    
+    // Create an array of pointers for sorting
+    NodoInterseccion **array = malloc(count * sizeof(NodoInterseccion *));
+    current = *puntajes;
+    for (int i = 0; i < count; i++) {
+        array[i] = current;
+        current = current->next;
+    }
+    
+    // Sort the array by occurrences
+    qsort(array, count, sizeof(NodoInterseccion *), compare_occurrences);
+    
+    // Rebuild the list with only top `topk` elements
+    *puntajes = array[0];
+    NodoInterseccion *last = *puntajes;
+    for (int i = 1; i < topk; i++) {
+        last->next = array[i];
+        last = last->next;
+    }
+    last->next = NULL;
+
+    // Free remaining nodes and the array
+    for (int i = topk; i < count; i++) {
+        free(array[i]);
+    }
+    free(array);
+}
+
+// Main buscarPalabra function with topk limit
+void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes, int *contador_interseccion, int topk) {
     size_t len = strlen(palabra);
-        if (len > 0 && palabra[len - 1] == '\n') {
-            palabra[len - 1] = '\0';
-        }
+    if (len > 0 && palabra[len - 1] == '\n') {
+        palabra[len - 1] = '\0';
+    }
     unsigned long indice = hashstring((unsigned char *)palabra);
     NodoPalabra *nodo = tabla->tabla[indice];
-
-    // After displaying all words, we can proceed with the original search logic
-    nodo = tabla->tabla[indice];
 
     // Locate the correct NodoPalabra for `palabra`
     while(nodo != NULL && (strcmp(nodo->palabra, palabra) != 0)) {
@@ -76,7 +122,6 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
     }
 
     if (nodo == NULL) {
-        // Only clear `puntajes` if this is the first word
         if (*contador_interseccion == 1) {
             *puntajes = NULL;
         }
@@ -95,6 +140,7 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
             *puntajes = nuevo;
             nodo_ocurrencias = nodo_ocurrencias->next;
         }
+        trim_to_topk(puntajes, topk);
         return;
     }
 
@@ -106,7 +152,6 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
         int found = 0;
         ID_Ocurrencias *nodo_ocurrencias = nodo->ocurrencias;
 
-        // Check if the document ID is in the list for this palabra
         while (nodo_ocurrencias != NULL) {
             if (nodo_ocurrencias->ID == current->id_documento) {
                 found = 1;
@@ -118,7 +163,6 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
         }
 
         if (!found) {
-            // Remove from puntajes if not found
             if (prev == NULL) {
                 *puntajes = current->next;
                 free(current);
@@ -153,18 +197,21 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
             current = current->next;
         }
     }
+
+    // Trim puntajes to top `topk`
+    trim_to_topk(puntajes, topk);
 }
 
 
 
-void procesarPalabras(TablaHash *tabla, NodoInterseccion **puntajes, char palabras[BUFFER_SIZE]){
+void procesarPalabras(TablaHash *tabla, NodoInterseccion **puntajes, char palabras[BUFFER_SIZE], int topK){
     char *palabra;
     palabra = strtok(palabras, " ");
     int contador_interseccion = 0;
 
     while (palabra != NULL) {
         contador_interseccion++;
-        buscarPalabra(tabla, palabra, puntajes, &contador_interseccion);
+        buscarPalabra(tabla, palabra, puntajes, &contador_interseccion, topK);
         palabra = strtok(NULL, " ");
     }
 }

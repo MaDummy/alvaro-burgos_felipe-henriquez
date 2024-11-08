@@ -65,6 +65,8 @@ int main(int argc, char **argv){
         strcpy(auxBuffer,buffer);
 
         if(strcmp(buffer,"SALIR AHORA\n") == 0){
+            close(new_socket);
+            close(server_fd);
             running = 0;
         }
         else{
@@ -81,7 +83,7 @@ int main(int argc, char **argv){
             sleep(3);
 
             NodoInterseccion *puntajes = NULL;
-            procesarPalabras(&tabla, &puntajes, buffer);
+            procesarPalabras(&tabla, &puntajes, buffer, topk);
             printf("motor de busqueda creo interseccion\n");
             sleep(3);
 
@@ -123,8 +125,6 @@ int main(int argc, char **argv){
     }
 
     printf("soy el motor de busqueda y me voy a cerrar\n");
-    close(new_socket);
-    close(server_fd);
     return(0);
 
 

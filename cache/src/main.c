@@ -43,7 +43,6 @@ int main(int argc, char **argv){
         exit(EXIT_FAILURE);
     }
 
-    listen(server_fd, 1);
     if (listen(server_fd, 1) == -1) {
         perror("Error al escuchar\n");
         close(server_fd);

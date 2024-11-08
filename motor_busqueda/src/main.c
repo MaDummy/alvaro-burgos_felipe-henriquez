@@ -37,6 +37,13 @@ int main(int argc, char **argv){
     serverAddress.sin_addr.s_addr = INADDR_ANY;
     serverAddress.sin_port = htons(port);
 
+    int opt = 1;
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) {
+        perror("Error al configurar SO_REUSEADDR");
+        close(server_fd);
+        exit(EXIT_FAILURE);
+    }
+
     if (bind(server_fd, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) == -1) {
         perror("Error al enlazar el socket\n");
         close(server_fd);

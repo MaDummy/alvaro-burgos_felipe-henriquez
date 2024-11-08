@@ -33,7 +33,7 @@ int main(int argc, char **argv){
     address.sin_port = htons(puerto_cache);
 
     bind(server_fd, (struct sockaddr *)&address, sizeof(address));
-    listen(server_fd, 2);
+    listen(server_fd, 1);
 
     //Socket de cliente para motor de busqueda
     struct sockaddr_in motor_address;
@@ -59,7 +59,11 @@ int main(int argc, char **argv){
             memset(buffer2, 0, BUFFER_SIZE);    
 
             int bytes_read = read(new_socket, buffer, BUFFER_SIZE);
+            //printf("cache recibio %s\n", buffer);
+            //sleep(3);
             if (bytes_read == 0) {  // Significa que el buscador cerro el socket
+                printf("soy la cache y voy a cerrar el socket con buscador\n");
+                sleep(5);
                 close(new_socket); // Tambien cierra el socket
                 break; // Sale del while interno
             }
@@ -67,18 +71,34 @@ int main(int argc, char **argv){
             if(strcmp(buffer,"SALIR AHORA\n") == 0){
                 running = 0; // Para que el while externo se termine
                 send(motor_socket, buffer, BUFFER_SIZE, 0); // Para enviar el mensaje de termino a motor de busqueda
+                close(new_socket);
                 break; // Para terminar salirse del while interno
             }
             else{
                 printf("soy la cache y estoy enviando: %s\n", buffer);
+                sleep(3);
                 // Se escribe la salida en el buffer2
-                resultado = buscarEntrada(cache, buffer);
+                //resultado = buscarEntrada(cache, buffer);
+                resultado = "-1";
                 if(strcmp(resultado, "-1") != 0){
                     snprintf(buffer2, BUFFER_SIZE, "%s", resultado); // existe por temas de depuracion
                     send(new_socket, buffer2, BUFFER_SIZE, 0); // Envia mensaje a buscador
                 }else{
-                    send(motor_socket, buffer, BUFFER_SIZE, 0); // Envia mensaje recibido de buscador a motor de busqueda
+                    printf("cache envia %s a motor\n", buffer);
+                    sleep(3);
+                    int bytes_sent = send(motor_socket, buffer, BUFFER_SIZE, 0);
+                    if (bytes_sent < 0) {
+                        printf("Error al enviar datos a motor de busqueda");
+                        sleep(5);
+                        break; // Manejo de error y salir del bucle
+                    }
+                    // Envia mensaje recibido de buscador a motor de busqueda
                     read(motor_socket, buffer2, BUFFER_SIZE); // Lee mensaje recibido de motor de busqueda
+                    printf("cache recibio %s de motor\n", buffer2);
+                    sleep(3);
+                    printf("cache envia %s a buscador\n", buffer2);
+                    sleep(3);
+                    send(new_socket, buffer2, BUFFER_SIZE, 0);
                     agregarEntrada(cache, buffer, buffer2);
                 }
 
@@ -89,7 +109,6 @@ int main(int argc, char **argv){
     }
     printf("soy la cache y me voy a cerrar\n"); // Para depurar
     sleep(5); // Para depurar
-    close(new_socket);
     close(server_fd);
     close(motor_socket);
     return(0);

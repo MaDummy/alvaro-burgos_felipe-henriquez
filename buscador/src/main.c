@@ -92,13 +92,14 @@ int main(int argc, char **argv) {
                 break;
             case 0:
                 salir = true;
-                close(sock);
                 break;
             default:
                 opcion_valida = false;
                 printf("Opción no válida. Intente de nuevo.\n");
         }
     } while (!salir);
-     exit(0);
+    send(sock, "SALIR AHORA\n", BUFFER_SIZE, 0);
+    close(sock);
+    exit(0);
     
 }

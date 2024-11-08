@@ -33,7 +33,7 @@ int main(int argc, char **argv){
     address.sin_port = htons(port);
 
     bind(server_fd, (struct sockaddr *)&address, sizeof(address));
-    listen(server_fd, 2);
+    listen(server_fd, 1);
 
     new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
 
@@ -46,7 +46,8 @@ int main(int argc, char **argv){
         memset(auxBuffer, 0, BUFFER_SIZE);
 
         read(new_socket, buffer, BUFFER_SIZE);
-
+        printf("motor recibio %s \n", buffer);
+        sleep(3);
         strcpy(auxBuffer,buffer);
 
         if(strcmp(buffer,"SALIR AHORA\n") == 0){
@@ -62,9 +63,14 @@ int main(int argc, char **argv){
             
             rellenarTablaHash(archivo_index, &tabla);
             fclose(archivo_index);
+            printf("motor de busqueda creo tabla hash\n");
+            sleep(3);
 
             NodoInterseccion *puntajes = NULL;
             procesarPalabras(&tabla, &puntajes, buffer);
+            printf("motor de busqueda creo interseccion\n");
+            sleep(3);
+
 
             if (puntajes == NULL) {
                 printf("No hay intersecciones para imprimir.\n");
@@ -73,6 +79,8 @@ int main(int argc, char **argv){
 
 
             char *formatted_result = formatearResultado(puntajes, auxBuffer);
+            printf("motor de busqueda creo respuesta\n");
+            sleep(3);
 
             snprintf(buffer2,BUFFER_SIZE, "respuesta motor: %s\n", formatted_result);
 
@@ -93,6 +101,8 @@ int main(int argc, char **argv){
                     free(temp);
                 }
             }
+            printf("motor de busqueda libero tabla hash\n");
+            sleep(3);
 
             send(new_socket, buffer2, BUFFER_SIZE, 0);
         }

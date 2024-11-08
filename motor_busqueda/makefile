@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -I./include
 SRCDIR = src
 OBJDIR = obj
-TARGET = main
+TARGET = motor
 SRCFILES = main.c file_utils.c
 OBJFILES = $(SRCFILES:.c=.o)
 OBJS = $(addprefix $(OBJDIR)/, $(OBJFILES))

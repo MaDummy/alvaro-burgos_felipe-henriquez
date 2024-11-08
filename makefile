@@ -35,9 +35,11 @@ buscador:
 
 cache:
 	$(MAKE) -C cache
+	mv cache/cache_prog ./cache_prog
 
 motor_busqueda:
 	$(MAKE) -C motor_busqueda
+	mv motor_busqueda/motor ./motor
 
 clean:
 	$(MAKE) -C programa_principal clean
@@ -53,3 +55,5 @@ clean:
 	$(MAKE) -C cache clean
 	$(MAKE) -C motor_busqueda clean
 	rm -f main
+	rm -f motor
+	rm -f cache_prog

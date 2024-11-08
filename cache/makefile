@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -I./include
 SRCDIR = src
 OBJDIR = obj
-TARGET = main
+TARGET = cache_prog
 SRCFILES = main.c cache_funcs.c
 OBJFILES = $(SRCFILES:.c=.o)
 OBJS = $(addprefix $(OBJDIR)/, $(OBJFILES))

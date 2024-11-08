@@ -5,18 +5,24 @@
 #include <arpa/inet.h>
 #include "../include/file_utils.h"
 
+void exporta_env();
+
 // ./main puerto_motor_busqueda topk inverted_index_path
-// ./main 8081 10 ../data/conteo_palabras/inverted_index.INDEX <- si se ejecuta desde su carpeta
+// ./main 8081 10 data/conteo_palabras/inverted_index.INDEX <- si se ejecuta desde su carpeta
 int main(int argc, char **argv){
-    if (argc != 4){
-        fprintf(stderr, "Error al llamar motor_busqueda, se requieren 3 parametros y se pasaron %d", argc - 1);
-        sleep(5);
-        return 1;
+    exporta_env();
+    char *port_env = getenv("PUERTO_MOTOR_BUSQUEDA");
+    char *topk_env = getenv("TOPK");
+    char *index_env = getenv("INVERTED_INDEX");
+
+    if (port_env == NULL || topk_env == NULL || index_env == NULL) {
+        fprintf(stderr, "Error: Una variable de enotrno no funciono.\n");
+        exit(EXIT_FAILURE);
     }
 
-    int port = atoi(argv[1]);
-    int topk = atoi(argv[2]);
-    char *inverted_index_path = argv[3];
+    int port = atoi(port_env);
+    int topk = atoi(topk_env);
+    char *inverted_index_path = index_env;
 
     int server_fd, new_socket;
     struct sockaddr_in serverAddress;
@@ -68,7 +74,6 @@ int main(int argc, char **argv){
 
         read(new_socket, buffer, BUFFER_SIZE);
         printf("motor recibio %s \n", buffer);
-        sleep(3);
         strcpy(auxBuffer,buffer);
 
         if(strcmp(buffer,"SALIR AHORA\n") == 0){
@@ -80,30 +85,25 @@ int main(int argc, char **argv){
             FILE *archivo_index = fopen(inverted_index_path, "r");
             if (archivo_index == NULL) {
                 fprintf(stderr, "Error: No se pudo abrir inverted_index en motor de busqueda.\n");
-                sleep(5);
                 continue; 
             }
             
             rellenarTablaHash(archivo_index, &tabla);
             fclose(archivo_index);
             printf("motor de busqueda creo tabla hash\n");
-            sleep(3);
 
             NodoInterseccion *puntajes = NULL;
             procesarPalabras(&tabla, &puntajes, buffer, topk);
             printf("motor de busqueda creo interseccion\n");
-            sleep(3);
 
 
             if (puntajes == NULL) {
                 printf("No hay intersecciones para imprimir.\n");
-                sleep(5);
             }
 
 
             char *formatted_result = formatearResultado(puntajes, auxBuffer);
             printf("motor de busqueda creo respuesta\n");
-            sleep(3);
 
             snprintf(buffer2,BUFFER_SIZE, "respuesta motor: %s\n", formatted_result);
 
@@ -125,7 +125,6 @@ int main(int argc, char **argv){
                 }
             }
             printf("motor de busqueda libero tabla hash\n");
-            sleep(3);
 
             send(new_socket, buffer2, BUFFER_SIZE, 0);
         }
@@ -133,6 +132,23 @@ int main(int argc, char **argv){
 
     printf("soy el motor de busqueda y me voy a cerrar\n");
     return(0);
+}
 
+void exporta_env() {
+    FILE *file = fopen(".env", "r");
 
+    char line[256];
+    while (fgets(line, sizeof(line), file)) {
+        line[strcspn(line, "\n")] = 0;
+
+        char *delimiter = strchr(line, '=');
+        if (delimiter != NULL) {
+            *delimiter = '\0';
+            char *key = line;
+            char *value = delimiter + 1;
+
+            setenv(key, value, 1);
+        }
+    }
+    fclose(file);
 }

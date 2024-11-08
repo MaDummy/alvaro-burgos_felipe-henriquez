@@ -37,6 +37,13 @@ int main(int argc, char **argv){
     serverAddress.sin_addr.s_addr = INADDR_ANY;
     serverAddress.sin_port = htons(port);
 
+    int opt = 1;
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)) == -1) {
+        perror("Error al configurar SO_REUSEADDR | SO_REUSEPORT");
+        close(server_fd);
+        exit(EXIT_FAILURE);
+    }
+    
     if (bind(server_fd, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) == -1) {
         perror("Error al enlazar el socket\n");
         close(server_fd);
@@ -48,6 +55,8 @@ int main(int argc, char **argv){
         close(server_fd);
         exit(EXIT_FAILURE);
     }
+
+
 
     new_socket = accept(server_fd, (struct sockaddr *)&serverAddress, (socklen_t*)&addrlen);
     printf("motor entro al while\n");

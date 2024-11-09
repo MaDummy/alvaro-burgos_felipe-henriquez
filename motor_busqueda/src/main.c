@@ -7,8 +7,6 @@
 
 void exporta_env();
 
-// ./main puerto_motor_busqueda topk inverted_index_path
-// ./main 8081 10 data/conteo_palabras/inverted_index.INDEX <- si se ejecuta desde su carpeta
 int main(int argc, char **argv){
     exporta_env();
     char *port_env = getenv("PUERTO_MOTOR_BUSQUEDA");
@@ -98,14 +96,15 @@ int main(int argc, char **argv){
 
 
             if (puntajes == NULL) {
-                printf("No hay intersecciones para imprimir.\n");
+                printf("No hay intersecciones.\n");
+                snprintf(buffer2, BUFFER_SIZE, "%s", "No hay coincidencias");
+            }else{
+                char *formatted_result = formatearResultado(puntajes, auxBuffer);
+                printf("motor de busqueda creo respuesta\n");
+                snprintf(buffer2,BUFFER_SIZE, "respuesta motor: %s\n", formatted_result);
+
             }
 
-
-            char *formatted_result = formatearResultado(puntajes, auxBuffer);
-            printf("motor de busqueda creo respuesta\n");
-
-            snprintf(buffer2,BUFFER_SIZE, "respuesta motor: %s\n", formatted_result);
 
             for (int i = 0; i < TAMANO_TABLA_HASH; i++) {
                 NodoPalabra *nodo = tabla.tabla[i];
@@ -127,6 +126,8 @@ int main(int argc, char **argv){
             printf("motor de busqueda libero tabla hash\n");
 
             send(new_socket, buffer2, BUFFER_SIZE, 0);
+
+            printf("motor de busqueda envio respuesta\n");
         }
     }
 

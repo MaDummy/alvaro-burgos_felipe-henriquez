@@ -15,22 +15,18 @@ unsigned long hashstring(unsigned char *str){
 }
 
 void insertarPalabra(TablaHash *tabla, char *palabra) {
-    // Extract only the word to hash
     char *token = strtok(palabra, ";");
-    char word_to_hash[BUFFER_LINEA];
-    strcpy(word_to_hash, token);
+    char palabra_hash[BUFFER_LINEA];
+    strcpy(palabra_hash, token);
 
-    // Now hash only the word part
-    unsigned long indice = hashstring((unsigned char *)word_to_hash);
+    unsigned long indice = hashstring((unsigned char *)palabra_hash);
 
     NodoPalabra *nuevoNodo = malloc(sizeof(NodoPalabra));
 
     int id_documento, ocurrencias;
 
-    // Store the word in the node
     strcpy(nuevoNodo->palabra, token);
 
-    // Process the rest of the string (tuples of (id_documento, ocurrencias))
     while ((token = strtok(NULL, ";")) != NULL) {
         sscanf(token, "(%d,%d)", &id_documento, &ocurrencias);
 
@@ -41,7 +37,6 @@ void insertarPalabra(TablaHash *tabla, char *palabra) {
         nuevoNodo->ocurrencias = nuevo;
     }
 
-    // Insert the node into the hash table
     nuevoNodo->next = tabla->tabla[indice];
     tabla->tabla[indice] = nuevoNodo;
     tabla->palabrasDiferentesTabla++;
@@ -59,28 +54,23 @@ void rellenarTablaHash(FILE *archivo_index, TablaHash *tabla){
     }
 }
 
-// Helper function to sort by occurrences in descending order
-int compare_occurrences(const void *a, const void *b) {
+int compara_ocurrencias(const void *a, const void *b) {
     NodoInterseccion *nodoA = *(NodoInterseccion **)a;
     NodoInterseccion *nodoB = *(NodoInterseccion **)b;
     return nodoB->suma_ocurrencias - nodoA->suma_ocurrencias;
 }
 
-// Trims puntajes to the top `topk` elements
-void trim_to_topk(NodoInterseccion **puntajes, int topk) {
+void disminuye_a_topk(NodoInterseccion **puntajes, int topk) {
     int count = 0;
     NodoInterseccion *current = *puntajes;
     
-    // Count total elements
     while (current) {
         count++;
         current = current->next;
     }
     
-    // If current size is less than or equal to topk, no trimming needed
     if (count <= topk) return;
     
-    // Create an array of pointers for sorting
     NodoInterseccion **array = malloc(count * sizeof(NodoInterseccion *));
     current = *puntajes;
     for (int i = 0; i < count; i++) {
@@ -88,10 +78,8 @@ void trim_to_topk(NodoInterseccion **puntajes, int topk) {
         current = current->next;
     }
     
-    // Sort the array by occurrences
-    qsort(array, count, sizeof(NodoInterseccion *), compare_occurrences);
+    qsort(array, count, sizeof(NodoInterseccion *), compara_ocurrencias);
     
-    // Rebuild the list with only top `topk` elements
     *puntajes = array[0];
     NodoInterseccion *last = *puntajes;
     for (int i = 1; i < topk; i++) {
@@ -100,14 +88,12 @@ void trim_to_topk(NodoInterseccion **puntajes, int topk) {
     }
     last->next = NULL;
 
-    // Free remaining nodes and the array
     for (int i = topk; i < count; i++) {
         free(array[i]);
     }
     free(array);
 }
 
-// Main buscarPalabra function with topk limit
 void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes, int *contador_interseccion, int topk) {
     size_t len = strlen(palabra);
     if (len > 0 && palabra[len - 1] == '\n') {
@@ -116,7 +102,6 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
     unsigned long indice = hashstring((unsigned char *)palabra);
     NodoPalabra *nodo = tabla->tabla[indice];
 
-    // Locate the correct NodoPalabra for `palabra`
     while(nodo != NULL && (strcmp(nodo->palabra, palabra) != 0)) {
         nodo = nodo->next;
     }
@@ -128,7 +113,6 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
         return;
     }
 
-    // Populate puntajes for the first word
     if (*contador_interseccion == 1 && *puntajes == NULL) {
         ID_Ocurrencias *nodo_ocurrencias = nodo->ocurrencias;
         while (nodo_ocurrencias != NULL) {
@@ -140,11 +124,10 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
             *puntajes = nuevo;
             nodo_ocurrencias = nodo_ocurrencias->next;
         }
-        trim_to_topk(puntajes, topk);
+        disminuye_a_topk(puntajes, topk);
         return;
     }
 
-    // If `puntajes` is already initialized, filter for intersections
     NodoInterseccion *prev = NULL;
     NodoInterseccion *current = *puntajes;
 
@@ -178,7 +161,6 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
         }
     }
 
-    // Final pass: remove entries with `contador` less than `contador_interseccion`
     prev = NULL;
     current = *puntajes;
     while (current != NULL) {
@@ -198,8 +180,7 @@ void buscarPalabra(TablaHash *tabla, char *palabra, NodoInterseccion **puntajes,
         }
     }
 
-    // Trim puntajes to top `topk`
-    trim_to_topk(puntajes, topk);
+    disminuye_a_topk(puntajes, topk);
 }
 
 
@@ -218,7 +199,6 @@ void procesarPalabras(TablaHash *tabla, NodoInterseccion **puntajes, char palabr
 
 
 char *formatearResultado(NodoInterseccion *puntajes, char *palabras) {
-    // Initial buffer for the formatted string, adjust size as needed
     int buffer_size = 2048;
     char *resultado = malloc(buffer_size);
     if (resultado == NULL) {
@@ -231,18 +211,14 @@ char *formatearResultado(NodoInterseccion *puntajes, char *palabras) {
         palabras[len - 1] = '\0';
     }
 
-    // Start the formatted string with the searched words
     snprintf(resultado, buffer_size, "%s", palabras);
 
-    // Traverse the linked list of NodoInterseccion and format each entry
     NodoInterseccion *current = puntajes;
     while (current != NULL) {
-        char temp[64]; // Temporary buffer for each document entry
+        char temp[64];
         snprintf(temp, sizeof(temp), ";(%d;%d)", current->id_documento, current->suma_ocurrencias);
 
-        // Append the formatted document entry to the result string
         if (strlen(resultado) + strlen(temp) + 1 >= buffer_size) {
-            // Reallocate if the buffer is too small
             buffer_size *= 2;
             resultado = realloc(resultado, buffer_size);
             if (resultado == NULL) {
@@ -252,7 +228,6 @@ char *formatearResultado(NodoInterseccion *puntajes, char *palabras) {
         }
         strcat(resultado, temp);
         
-        // Move to the next node
         current = current->next;
     }
 

@@ -17,9 +17,10 @@ Para usuarios con el rol "generico":
     3. Ingresar ruta de la carpeta de entrada: Opcion para ingresar la ruta a una carpeta donde se dejaran .txt por cada archivo en la carpeta de entrada, que mostraran las palabras unicas y sus ocurrencias.
     4. Ejecutar conteo de palabras: Si se uso el resto de opciones para ingresar informacion correctamente esta opcion va a buscar en la carpeta de entrada archivos con la extension dada, va a contar las ocurrencias de cada palabra unica, va a crear, por cada archivo leido, un txt en la carpeta de salida con cada palabra y sus ocurrencias, y mostrara en pantalla las rutas a esos txt y la cantidad de palabras diferentes que se anotaron en cada uno.
     0. Salir: termina el proceso externo y vuelve al menu principal.
-7. Conteo paralelo: Se realiza el conteo de palabras de forma paralela. La cantidad de threads están especificados en la variable de entorno "CANTIDAD_THREADS"
-8. Crear indice invertido: Solo si ya se ejecuto conteo paralelo. Lee el output de este para crear un archivo .INDEX con formato palabra;(IDX,ocurrencias);(IDX2,ocurrencias2)
-9. Simular planificador: Simula un planificador que lee procesos de un archivo definido en la variable de entorno PROCESOS (con formato id_core;operacion;operador1,operador2) y decide a que "core" (proceso externo que puede realizar operaciones) esta libre, para enviarle un mensaje con el proceso y el core que le ejecutara a un "distribuidor" (proceso externo) que se lo pasa a un core y recibe la respuesta para escribirla en el archivo definido en la variable de entorno RESULTADOS. La cantidad de cores que se pueden usar esta definida en la variable de entorno CANTIDAD_CORES
+7. Conteo paralelo: Se realiza el conteo de palabras de forma paralela. La cantidad de threads están especificados en la variable de entorno "CANTIDAD_THREADS".
+8. Crear indice invertido: Solo si ya se ejecuto conteo paralelo. Lee el output de este para crear un archivo .INDEX con formato palabra;(IDX,ocurrencias);(IDX2,ocurrencias2).
+9. Simular planificador: Simula un planificador que lee procesos de un archivo definido en la variable de entorno PROCESOS (con formato id_core;operacion;operador1,operador2) y decide a que "core" (proceso externo que puede realizar operaciones) esta libre, para enviarle un mensaje con el proceso y el core que le ejecutara a un "distribuidor" (proceso externo) que se lo pasa a un core y recibe la respuesta para escribirla en el archivo definido en la variable de entorno RESULTADOS. La cantidad de cores que se pueden usar esta definida en la variable de entorno CANTIDAD_CORES.
+20. Buscador: Requiere que se hayan ejecutado "cache_prog" y "motor" por separado, esta opcion permite ingresar una combinacion de palabras separadas por espacios para buscarlas en los textos, esta combinacion se envia al proceso cache, que busca si ya se habia buscado (en cuyo caso devuelve la respuesta guardada) o la envia al proceso motor de busqueda, que realiza la busqueda en el archivo inverted_index.INDEX y devuelve una interseccion de documentos que contenian todas las palabras y la suma de sus ocurrencias. Contiene variables de entorno que se explican en consideraciones.
 
 Para usuarios "admin": Además de las opciones anteriores, los administradores tienen tres opciones adicionales:
 
@@ -70,3 +71,9 @@ Consideraciones:
     - PATH_INPUT: Path a carpeta con textos que se desean procesar en conteo de palabras paralelo
     - PATH_OUTPUT: Path a carpeta donde se desea guardar output de conteo de palabras paralelo
     - EXTENSION: Extension de los archivos que se desean procesar
+
+- Buscador contiene las siguientes variables de entorno que le podrian interesar al usuario:
+    - MEMORY_SIZE: Tamaño de respuestas que se guardaran en la cache
+    - TOPK: El numero de documentos que devuelve la busqueda en motor de busqueda, se entregan los TOPK con mayor puntaje
+    - PUERTO_CACHE: puerto que usa la cache para comunicarse con otros procesos, se puede cambiar si el usuario necesita usar ese puerto para otra cosa
+    - PUERTO_MOTOR_BUSQUEDA: puerto que usa el motor de busqueda para comunicarse con otros procesos, se puede cambiar si el usuario necesita usar ese puerto para otra cosa

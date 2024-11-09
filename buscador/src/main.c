@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
         sleep(5);
     }
 
+    char *ruta_mapa_archivo = argv[1];
     int puerto_cache = atoi(argv[2]);
 
     bool opcion_valida = 1;
@@ -74,19 +75,19 @@ int main(int argc, char **argv) {
                 printf("*Debe ingresar las palabras que desea buscar separadas por un espacio\n");
                 printf("*Solo se devolveran textos que contengan TODAS las palabras\n");
                 printf("*Inserte 'SALIR AHORA' para cerrar la cache, motor de busqueda, y esta opcion");
-                printf("Ingrese palabras a buscar\n");
+                printf("Ingrese palabras a buscar: ");
 
                 getchar();
 
                 fgets(buffer, BUFFER_SIZE, stdin);
+                char *palabra = strdup(buffer);
 
                 if (strcmp("SALIR AHORA\n", buffer) == 0) {
                     salir = true;
                 } else if (strlen(buffer) > 1) { 
-
                     send(sock, buffer, BUFFER_SIZE, 0);
-
                     read(sock, buffer, BUFFER_SIZE);
+                    buffer = reemplazaTextos(buffer, ruta_mapa_archivo);
 
                  }
                 break;

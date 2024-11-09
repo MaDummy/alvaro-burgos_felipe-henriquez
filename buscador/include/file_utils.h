@@ -40,5 +40,10 @@ void contar_palabras(FILE *archivo_entrada, FILE *archivo_salida, int *palabrasD
 /// @param contadorArchivos Puntero a entero que guarda sobre cuantos archivos se conto palabras
 void procesar_archivos(char *directorio_entrada, char *extension, char *directorio_salida, char *pathArchivosSalida[MAX_ARCHIVOS], int cantidadPalabras[MAX_ARCHIVOS], int *contadorArchivos);
 
+/// @brief Reemplaza el código hash del output de motor de búsqueda por el nombre del documento
+/// @param input_text Resultado de motor de búsqueda
+/// @param file_path Direccion a mapa_archivso.txt
+/// @return Texto modificado
+char *reemplazaTexto(char *input_text, char *file_path);
 
 #endif

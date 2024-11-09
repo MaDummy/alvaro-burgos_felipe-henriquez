@@ -144,3 +144,50 @@ void procesar_archivos(char *directorioEntrada, char *extension, char *directori
     closedir(dir);
 }
 
+char *reemplazaTexto(char *input_text, char *file_path) {
+    FILE *file = fopen(file_path, "r");
+    if (file == NULL) {
+        perror("Error al abrir el archivo");
+        return NULL;
+    }
+
+    char *result = strdup(input_text); // Copia del texto original para hacer reemplazos
+    char line[256];
+    char doc_name[256];
+    char hash[20];
+
+    while (fgets(line, sizeof(line), file) != NULL) {
+        // Leer cada línea del archivo y separar el nombre del documento y el código hash
+        if (sscanf(line, " %[^,], %s", doc_name, hash) == 2) {
+            // Construir la cadena de búsqueda y reemplazo
+            char search_str[30];
+            snprintf(search_str, sizeof(search_str), "(%s;", hash);
+
+            char *pos = strstr(result, search_str);
+            if (pos != NULL) {
+                // Calcular el tamaño necesario para el texto nuevo
+                size_t new_size = strlen(result) - strlen(hash) + strlen(doc_name) + 1;
+                char *new_result = malloc(new_size);
+                if (new_result == NULL) {
+                    perror("Error de memoria");
+                    fclose(file);
+                    free(result);
+                    return NULL;
+                }
+
+                // Copiar el texto hasta la posición del código hash y hacer el reemplazo
+                strncpy(new_result, result, pos - result);
+                new_result[pos - result] = '\0';
+                strcat(new_result, doc_name);
+                strcat(new_result, pos + strlen(hash) + 2);  // Saltar "(hash;"
+
+                free(result);  // Liberar la memoria de la copia anterior
+                result = new_result;
+            }
+        }
+    }
+
+    fclose(file);
+    return result;
+}
+

@@ -48,6 +48,13 @@ Ejecutar el programa de la siguiente manera en la carpeta raíz
 
 ./main -u <usuario> -p <contraseña> -t "<texto>" -v "<vector>" -n <numero entero o flotante>
 
+Si quiere usar el buscador tambien debe ejecutar, terminales diferentes
+
+./motor
+./cache_prog
+
+En ese orden
+
 NOTAR que el texto y el vector van entre comillas dobles.
 
 Consideraciones:

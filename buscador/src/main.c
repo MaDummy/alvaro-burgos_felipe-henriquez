@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
                 printf("*No se busca una oracion, solo que las palabras esxistan en el texto\n");
                 printf("*Debe ingresar las palabras que desea buscar separadas por un espacio\n");
                 printf("*Solo se devolveran textos que contengan TODAS las palabras\n");
-                printf("*Inserte 'SALIR AHORA' para cerrar la cache, motor de busqueda, y esta opcion");
+                printf("*Inserte 'SALIR AHORA' para cerrar la cache, motor de busqueda, y esta opcion\n");
                 printf("Ingrese palabras a buscar: ");
 
                 getchar();

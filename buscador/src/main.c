@@ -9,17 +9,16 @@
 #include "../include/utils.h" //Se conserva de momento, muy probable de usar
 
 #define BUFFER_SIZE 1024
-#define PORT_CACHE 8080
 
-// ./main path_mapa_archivos puerto_cache
+// Ejecutar con ./main path_mapa_archivos puerto_cache
 int main(int argc, char **argv) {
     if (argc != 3){
         fprintf(stderr, "Error al llamar buscador, se requieren 1 parametros y se pasaron %d", argc - 1);
-        sleep(5);
+        exit(EXIT_FAILURE);
     }
-
-    char *ruta_mapa_archivo = argv[1];
-    int puerto_cache = atoi(argv[2]);
+    exporta_env();
+    char *ruta_mapa_archivo = getenv("MAPA_ARCHIVOS");
+    int puerto_cache = atoi(getenv("PUERTO_CACHE"));
 
     bool opcion_valida = 1;
     char buffer[BUFFER_SIZE] = "\0";
@@ -36,10 +35,6 @@ int main(int argc, char **argv) {
     inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
 
     connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
-    //termina socket
-
-
-
 
     do {
         system("clear");
@@ -80,15 +75,13 @@ int main(int argc, char **argv) {
                 getchar();
 
                 fgets(buffer, BUFFER_SIZE, stdin);
-                char *palabra = strdup(buffer);
 
                 if (strcmp("SALIR AHORA\n", buffer) == 0) {
                     salir = true;
                 } else if (strlen(buffer) > 1) { 
                     send(sock, buffer, BUFFER_SIZE, 0);
                     read(sock, buffer, BUFFER_SIZE);
-                    buffer = reemplazaTextos(buffer, ruta_mapa_archivo);
-
+                    if(!(strcmp(buffer, "No hay coincidencias") == 0)) strcpy(buffer, reemplazaTexto(buffer, ruta_mapa_archivo));
                  }
                 break;
             case 0:

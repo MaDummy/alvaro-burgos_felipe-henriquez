@@ -8,4 +8,7 @@ void exporta_env();
 /// @param nombreArchivo String al cual se removera la extension
 void remover_extension(char *nombreArchivo);
 
+/// @brief Funcion para exportar variables de entorno
+void exporta_env();
+
 #endif
